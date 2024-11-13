@@ -1,0 +1,615 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		64EBAEE72CAEE77400DF8E45 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 64EBAEE62CAEE77400DF8E45 /* FirebaseAuth */; };
+		64EBAEE92CAEE77400DF8E45 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 64EBAEE82CAEE77400DF8E45 /* FirebaseCore */; };
+		64EBAEEB2CAEE77400DF8E45 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 64EBAEEA2CAEE77400DF8E45 /* FirebaseFirestore */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		64EBAE6A2CAE951300DF8E45 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 64EBAE512CAE951100DF8E45 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 64EBAE582CAE951100DF8E45;
+			remoteInfo = "Health Safety and Compliance";
+		};
+		64EBAE742CAE951300DF8E45 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 64EBAE512CAE951100DF8E45 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 64EBAE582CAE951100DF8E45;
+			remoteInfo = "Health Safety and Compliance";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		64EBAE592CAE951100DF8E45 /* Health Safety and Compliance.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Health Safety and Compliance.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		64EBAE692CAE951300DF8E45 /* Health Safety and ComplianceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Health Safety and ComplianceTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		64EBAE732CAE951300DF8E45 /* Health Safety and ComplianceUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Health Safety and ComplianceUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		64EBAE5B2CAE951100DF8E45 /* Health Safety and Compliance */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Health Safety and Compliance";
+			sourceTree = "<group>";
+		};
+		64EBAE6C2CAE951300DF8E45 /* Health Safety and ComplianceTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Health Safety and ComplianceTests";
+			sourceTree = "<group>";
+		};
+		64EBAE762CAE951300DF8E45 /* Health Safety and ComplianceUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Health Safety and ComplianceUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		64EBAE562CAE951100DF8E45 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				64EBAEE92CAEE77400DF8E45 /* FirebaseCore in Frameworks */,
+				64EBAEE72CAEE77400DF8E45 /* FirebaseAuth in Frameworks */,
+				64EBAEEB2CAEE77400DF8E45 /* FirebaseFirestore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		64EBAE662CAE951300DF8E45 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		64EBAE702CAE951300DF8E45 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		64EBAE502CAE951100DF8E45 = {
+			isa = PBXGroup;
+			children = (
+				64EBAE5B2CAE951100DF8E45 /* Health Safety and Compliance */,
+				64EBAE6C2CAE951300DF8E45 /* Health Safety and ComplianceTests */,
+				64EBAE762CAE951300DF8E45 /* Health Safety and ComplianceUITests */,
+				64EBAE5A2CAE951100DF8E45 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		64EBAE5A2CAE951100DF8E45 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				64EBAE592CAE951100DF8E45 /* Health Safety and Compliance.app */,
+				64EBAE692CAE951300DF8E45 /* Health Safety and ComplianceTests.xctest */,
+				64EBAE732CAE951300DF8E45 /* Health Safety and ComplianceUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		64EBAE582CAE951100DF8E45 /* Health Safety and Compliance */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 64EBAE7D2CAE951300DF8E45 /* Build configuration list for PBXNativeTarget "Health Safety and Compliance" */;
+			buildPhases = (
+				64EBAE552CAE951100DF8E45 /* Sources */,
+				64EBAE562CAE951100DF8E45 /* Frameworks */,
+				64EBAE572CAE951100DF8E45 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				64EBAE5B2CAE951100DF8E45 /* Health Safety and Compliance */,
+			);
+			name = "Health Safety and Compliance";
+			packageProductDependencies = (
+				64EBAEE62CAEE77400DF8E45 /* FirebaseAuth */,
+				64EBAEE82CAEE77400DF8E45 /* FirebaseCore */,
+				64EBAEEA2CAEE77400DF8E45 /* FirebaseFirestore */,
+			);
+			productName = "Health Safety and Compliance";
+			productReference = 64EBAE592CAE951100DF8E45 /* Health Safety and Compliance.app */;
+			productType = "com.apple.product-type.application";
+		};
+		64EBAE682CAE951300DF8E45 /* Health Safety and ComplianceTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 64EBAE802CAE951300DF8E45 /* Build configuration list for PBXNativeTarget "Health Safety and ComplianceTests" */;
+			buildPhases = (
+				64EBAE652CAE951300DF8E45 /* Sources */,
+				64EBAE662CAE951300DF8E45 /* Frameworks */,
+				64EBAE672CAE951300DF8E45 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				64EBAE6B2CAE951300DF8E45 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				64EBAE6C2CAE951300DF8E45 /* Health Safety and ComplianceTests */,
+			);
+			name = "Health Safety and ComplianceTests";
+			packageProductDependencies = (
+			);
+			productName = "Health Safety and ComplianceTests";
+			productReference = 64EBAE692CAE951300DF8E45 /* Health Safety and ComplianceTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		64EBAE722CAE951300DF8E45 /* Health Safety and ComplianceUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 64EBAE832CAE951300DF8E45 /* Build configuration list for PBXNativeTarget "Health Safety and ComplianceUITests" */;
+			buildPhases = (
+				64EBAE6F2CAE951300DF8E45 /* Sources */,
+				64EBAE702CAE951300DF8E45 /* Frameworks */,
+				64EBAE712CAE951300DF8E45 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				64EBAE752CAE951300DF8E45 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				64EBAE762CAE951300DF8E45 /* Health Safety and ComplianceUITests */,
+			);
+			name = "Health Safety and ComplianceUITests";
+			packageProductDependencies = (
+			);
+			productName = "Health Safety and ComplianceUITests";
+			productReference = 64EBAE732CAE951300DF8E45 /* Health Safety and ComplianceUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		64EBAE512CAE951100DF8E45 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					64EBAE582CAE951100DF8E45 = {
+						CreatedOnToolsVersion = 16.0;
+					};
+					64EBAE682CAE951300DF8E45 = {
+						CreatedOnToolsVersion = 16.0;
+						TestTargetID = 64EBAE582CAE951100DF8E45;
+					};
+					64EBAE722CAE951300DF8E45 = {
+						CreatedOnToolsVersion = 16.0;
+						TestTargetID = 64EBAE582CAE951100DF8E45;
+					};
+				};
+			};
+			buildConfigurationList = 64EBAE542CAE951100DF8E45 /* Build configuration list for PBXProject "Health Safety and Compliance" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 64EBAE502CAE951100DF8E45;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				64EBAEE52CAEE77400DF8E45 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 64EBAE5A2CAE951100DF8E45 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				64EBAE582CAE951100DF8E45 /* Health Safety and Compliance */,
+				64EBAE682CAE951300DF8E45 /* Health Safety and ComplianceTests */,
+				64EBAE722CAE951300DF8E45 /* Health Safety and ComplianceUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		64EBAE572CAE951100DF8E45 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		64EBAE672CAE951300DF8E45 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		64EBAE712CAE951300DF8E45 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		64EBAE552CAE951100DF8E45 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		64EBAE652CAE951300DF8E45 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		64EBAE6F2CAE951300DF8E45 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		64EBAE6B2CAE951300DF8E45 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 64EBAE582CAE951100DF8E45 /* Health Safety and Compliance */;
+			targetProxy = 64EBAE6A2CAE951300DF8E45 /* PBXContainerItemProxy */;
+		};
+		64EBAE752CAE951300DF8E45 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 64EBAE582CAE951100DF8E45 /* Health Safety and Compliance */;
+			targetProxy = 64EBAE742CAE951300DF8E45 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		64EBAE7B2CAE951300DF8E45 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		64EBAE7C2CAE951300DF8E45 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		64EBAE7E2CAE951300DF8E45 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Health Safety and Compliance/Preview Content\"";
+				DEVELOPMENT_TEAM = PN73G36XCT;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Health-Safety-and-Compliance-Info.plist";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to provide the service.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Next-Energy.Health-Safety-and-Compliance";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		64EBAE7F2CAE951300DF8E45 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Health Safety and Compliance/Preview Content\"";
+				DEVELOPMENT_TEAM = PN73G36XCT;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Health-Safety-and-Compliance-Info.plist";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to provide the service.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Next-Energy.Health-Safety-and-Compliance";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		64EBAE812CAE951300DF8E45 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5G47BNVA2R;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Next-Energy.Health-Safety-and-ComplianceTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Health Safety and Compliance.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Health Safety and Compliance";
+			};
+			name = Debug;
+		};
+		64EBAE822CAE951300DF8E45 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5G47BNVA2R;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Next-Energy.Health-Safety-and-ComplianceTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Health Safety and Compliance.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Health Safety and Compliance";
+			};
+			name = Release;
+		};
+		64EBAE842CAE951300DF8E45 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5G47BNVA2R;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Next-Energy.Health-Safety-and-ComplianceUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Health Safety and Compliance";
+			};
+			name = Debug;
+		};
+		64EBAE852CAE951300DF8E45 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5G47BNVA2R;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Next-Energy.Health-Safety-and-ComplianceUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Health Safety and Compliance";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		64EBAE542CAE951100DF8E45 /* Build configuration list for PBXProject "Health Safety and Compliance" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				64EBAE7B2CAE951300DF8E45 /* Debug */,
+				64EBAE7C2CAE951300DF8E45 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		64EBAE7D2CAE951300DF8E45 /* Build configuration list for PBXNativeTarget "Health Safety and Compliance" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				64EBAE7E2CAE951300DF8E45 /* Debug */,
+				64EBAE7F2CAE951300DF8E45 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		64EBAE802CAE951300DF8E45 /* Build configuration list for PBXNativeTarget "Health Safety and ComplianceTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				64EBAE812CAE951300DF8E45 /* Debug */,
+				64EBAE822CAE951300DF8E45 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		64EBAE832CAE951300DF8E45 /* Build configuration list for PBXNativeTarget "Health Safety and ComplianceUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				64EBAE842CAE951300DF8E45 /* Debug */,
+				64EBAE852CAE951300DF8E45 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		64EBAEE52CAEE77400DF8E45 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.3.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		64EBAEE62CAEE77400DF8E45 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 64EBAEE52CAEE77400DF8E45 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		64EBAEE82CAEE77400DF8E45 /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 64EBAEE52CAEE77400DF8E45 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+		64EBAEEA2CAEE77400DF8E45 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 64EBAEE52CAEE77400DF8E45 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 64EBAE512CAE951100DF8E45 /* Project object */;
+}
