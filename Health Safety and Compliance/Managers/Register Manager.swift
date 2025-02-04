@@ -54,7 +54,24 @@ class SignInManager: ObservableObject {
             status: status,
             contract: contractName,
             firstName: firstName,
-            lastName: lastName
+            lastName: lastName,
+            signedInBy: nil
+        )
+        
+        signInRecords.insert(newRecord, at: 0)
+        saveToFirestore(record: newRecord)
+    }
+    
+    //Manually add a record
+    func addSignInRecordManually(firstName1: String, lastName1: String, time: String, location: String, status: String, contractName: String, signedInBy: String) {
+        let newRecord = SignInRecord(
+            time: time,
+            location: location,
+            status: status,
+            contract: contractName,
+            firstName: firstName1,
+            lastName: lastName1,
+            signedInBy: signedInBy
         )
         
         signInRecords.insert(newRecord, at: 0)
@@ -183,7 +200,8 @@ class SignInManager: ObservableObject {
             "contract": record.contract,
             "firstName": record.firstName,
             "lastName": record.lastName,
-            "userID": userId
+            "userID": userId,
+            "signedInBy": record.signedInBy ?? nil
         ]
         
         db.collection("signInRecords").addDocument(data: recordData) { error in
@@ -227,7 +245,8 @@ class SignInManager: ObservableObject {
                                 status: data["status"] as? String ?? "N/A",
                                 contract: data["contract"] as? String ?? "N/A",
                                 firstName: data["firstName"] as? String ?? "N/A",
-                                lastName: data["lastName"] as? String ?? "N/A"
+                                lastName: data["lastName"] as? String ?? "N/A",
+                                signedInBy: nil
                             )
                         }
                         return nil
@@ -275,7 +294,8 @@ class SignInManager: ObservableObject {
                                     status: data["status"] as? String ?? "N/A",
                                     contract: data["contract"] as? String ?? "N/A",
                                     firstName: data["firstName"] as? String ?? "N/A",
-                                    lastName: data["lastName"] as? String ?? "N/A"
+                                    lastName: data["lastName"] as? String ?? "N/A",
+                                    signedInBy: nil
                                 )
                             }
                             return nil

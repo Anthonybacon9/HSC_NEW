@@ -19,6 +19,7 @@ import CoreLocation
 struct ContentView: View {
     init() {
         setupTabBarAppearance()
+        fetchContractsFromFirebase()
     }
     
     @State private var selectedTab = 0
@@ -34,7 +35,8 @@ struct ContentView: View {
                     HStack {
                         Image("image001")
                             .resizable()
-                            .frame(width: 100, height: 35)
+                            .scaledToFit()
+                            .frame(height: 45)
                             .foregroundStyle(.green)
 //                        Text("NextEnergy")
 //                            .font(Font.custom("Poppins-Medium", size: 18))
@@ -55,14 +57,20 @@ struct ContentView: View {
                                 
                             }
                         
+                        ReportForm()
+                            .tag(1)
+                            .tabItem {
+                                Label("Report", systemImage: "bandage.fill")
+                            }
+                        
 //                        ReportForm()
-//                            .tag(1)
+//                            .tag(2)
 //                            .tabItem {
-//                                Label("Report", systemImage: "bandage.fill")
+//                                Label("Passport", systemImage: "wallet.pass.fill")
 //                            }
                         
                         UserProfile()
-                            .tag(2)
+                            .tag(3)
                             .tabItem {
                                 Label("Profile", systemImage: "person.fill")
                             }

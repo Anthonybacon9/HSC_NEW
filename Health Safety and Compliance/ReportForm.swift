@@ -21,6 +21,7 @@ struct ReportForm: View {
     @State private var accidentDescription: String = ""
     @State private var incidentDetails: String = ""
     @State private var nearMissDetails: String = ""
+    @State private var s1Details: String = ""
     @State private var location: String = ""
     @State private var date: Date = Date()
     @State private var severity: String = ""
@@ -39,6 +40,8 @@ struct ReportForm: View {
     @State private var personGender: String = ""
     @State private var personAge: String = ""
     @State private var actionsTaken: String = ""
+    
+    @State private var reviewSheetShowing = false
 
     var body: some View {
         ScrollView {
@@ -80,10 +83,16 @@ struct ReportForm: View {
                     IncidentQuestions()
                 case .nearMiss:
                     NearMissQuestions()
+                case .s1:
+                    s1Questions()
                 }
                 
+                //action: submitReport
+                
                 // Submit Button
-                Button(action: submitReport) {
+                Button(action: {
+                    reviewSheetShowing = true
+                }) {
                     Text("Submit Report")
                         .foregroundColor(.white)
                         .padding()
@@ -92,12 +101,106 @@ struct ReportForm: View {
                         .cornerRadius(10)
                 }
                 .padding(.top)
+                .sheet(isPresented: $reviewSheetShowing) {
+                    ReviewReportView()
+                }
+                .onAppear(
+                    perform: fetchContractsFromFirebase
+                )
                 
                 Spacer()
             }
             .padding(10)
         }
     }
+    
+    private let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .none
+        return formatter
+    }()
+    
+    
+    
+    private func ReviewReportView() -> some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 20) {
+                // Main Title
+                Text("Review Report")
+                    .font(.largeTitle)
+                    .bold()
+                    .padding(.bottom, 10)
+                
+                
+                SectionHeader(title: "\(report.rawValue)")
+                
+                // Section: Who / Where / When
+                SectionHeader(title: "Who")
+                Group {
+                    ReviewField(label: "Name", value: "\(firstName) \(lastName)")
+                    ReviewField(label: "Job Title", value: selectedJob?.name ?? jobTitle)
+                    ReviewField(label: "Employment Details", value: selectedEmployment?.name ?? employmentDetails)
+                    ReviewField(label: "Age", value: personAge)
+                    ReviewField(label: "Address", value: address)
+                    ReviewField(label: "Gender", value: selectedGender?.name ?? personGender)
+                    ReviewField(label: "Line Manager", value: lineManager)
+                    ReviewField(label: "Phone Number", value: phoneNumber)
+                    ReviewField(label: "Location", value: location)
+                    ReviewField(label: "Date", value: date, formatter: dateFormatter)
+                    ReviewField(label: "Time of Accident", value: timeOfAccident)
+                    ReviewField(label: "Witness Names", value: witnessNames)
+                }
+                .padding(.vertical, 10)
+
+                Divider() // Visual separator between sections
+                
+                // Section: What
+                SectionHeader(title: "What")
+                Group {
+                    ReviewField(label: "Selected Contract", value: selectedContract?.name ?? "Not selected")
+                    ReviewField(label: "Severity", value: selectedSeverity?.name ?? severity)
+                    if report.rawValue == "Accident" {
+                        ReviewField(label: "Accident Description", value: accidentDescription)
+                    }
+                    if report.rawValue == "Near Miss" {
+                        ReviewField(label: "Near Miss Details", value: nearMissDetails)
+                    }
+                    if report.rawValue == "Incident" {
+                        ReviewField(label: "Incident Details", value: incidentDetails)
+                    }
+                    ReviewField(label: "Location", value: location)
+                    ReviewField(label: "Date", value: date, formatter: dateFormatter)
+                    ReviewField(label: "Time of Accident", value: timeOfAccident)
+                    ReviewField(label: "Witness Names", value: witnessNames)
+                    ReviewField(label: "Injury Reported", value: injuryReported ? "Yes" : "No")
+                    ReviewField(label: "Accident Contract", value: accidentContract)
+                    ReviewField(label: "Type of Injury", value: selectedInjury?.name ?? typeOfInjury)
+                    ReviewField(label: "Part of Body Affected", value: selectedBodyPart?.name ?? partOfBody)
+                    ReviewField(label: "Actions Taken", value: actionsTaken)
+                }
+                .padding(.vertical, 10)
+                
+                Spacer()
+                
+                // Confirm Button
+                Button(action: {
+                    submitReport()
+                    print("Report submitted!")
+                    reviewSheetShowing = false
+                }) {
+                    Text("Confirm Submission")
+                        .foregroundColor(.white)
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color.green)
+                        .cornerRadius(10)
+                }
+            }
+            .padding()
+        }
+    }
+    
 
     private func submitReport() {
         let report = Report(
@@ -123,7 +226,8 @@ struct ReportForm: View {
             partOfBody: selectedBodyPart?.name ?? "No Body Part Selected",
             personGender: selectedGender?.name ?? "No Gender Selected",
             personAge: personAge,
-            actionsTaken: actionsTaken
+            actionsTaken: actionsTaken,
+            reportUserID: userId
         )
         
         let firestoreManager = FirestoreManager()
@@ -138,6 +242,8 @@ struct ReportForm: View {
             return incidentDetails
         case .nearMiss:
             return nearMissDetails
+        case .s1:
+            return s1Details
         }
     }
     
@@ -542,12 +648,46 @@ struct ReportForm: View {
             .padding()
             .background(RoundedRectangle(cornerRadius: 10).stroke())
     }
+    
+    //MARK: - SAFETY FIRST OBSERVATIONS
+    @ViewBuilder
+    private func s1Questions() -> some View {
+        TextField("What is your Safety F1rst observation?", text: $nearMissDetails)
+            .padding()
+            .background(RoundedRectangle(cornerRadius: 10).stroke())
+        
+        //MARK: SEVERITY
+        Menu {
+            ForEach(Severities) { sev in
+                Button(action: {
+                    selectedSeverity = sev
+                }) {
+                    Text(sev.name)
+                }
+            }
+        } label: {
+            HStack {
+                Text(selectedSeverity?.name ?? "Potential Severity")
+                Image(systemName: "chevron.down")
+                Spacer()
+            }.padding()
+                .background(RoundedRectangle(cornerRadius: 10).stroke())
+        }
+        
+        Toggle("Was there a safety breach involved?", isOn: $injuryReported)
+            .padding()
+        
+        TextField("Witness Names (if any)", text: $witnessNames)
+            .padding()
+            .background(RoundedRectangle(cornerRadius: 10).stroke())
+    }
 }
 
 enum ReportType: String, CaseIterable {
     case accident = "Accident"
     case incident = "Incident"
     case nearMiss = "Near Miss"
+    case s1 = "Safety F1rst Observation"
 
     var type: String {
         switch self {
@@ -557,9 +697,44 @@ enum ReportType: String, CaseIterable {
             return "Incident"
         case .nearMiss:
             return "Near Miss"
+        case .s1:
+            return "Safety F1rst Observation"
         }
     }
 }
+
+struct SectionHeader: View {
+    let title: String
+    
+    var body: some View {
+        Text(title)
+            .font(.title2)
+            .bold()
+            .foregroundColor(.green)
+            .padding(.bottom, 5)
+    }
+}
+
+struct ReviewField<T>: View {
+    let label: String
+    let value: T
+    var formatter: DateFormatter? = nil
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 2) {
+            Text(label)
+                .font(.headline)
+                .foregroundColor(.gray)
+            if let dateValue = value as? Date, let formatter = formatter {
+                Text(formatter.string(from: dateValue))
+            } else {
+                Text("\(value)")
+            }
+        }
+        .padding(.vertical, 5)
+    }
+}
+
 
 #Preview {
     ReportForm()

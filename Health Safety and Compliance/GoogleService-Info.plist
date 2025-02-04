@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyBTeE3T9GlzWXFW1VhcH70CqO1OUBSzudg</string>
+	<string>AIzaSyCWC977VGMW7Vh6gfJqM55j-B2UIf7Jcks</string>
 	<key>GCM_SENDER_ID</key>
-	<string>575965472347</string>
+	<string>932910056370</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>Next-Energy.Health-Safety-and-Compliance</string>
+	<string>Next-Energy.Health-HSC</string>
 	<key>PROJECT_ID</key>
-	<string>nextenergy-hsc</string>
+	<string>ne-hsc</string>
 	<key>STORAGE_BUCKET</key>
-	<string>nextenergy-hsc.appspot.com</string>
+	<string>ne-hsc.firebasestorage.app</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:575965472347:ios:1644eae6ac882c1fbb417e</string>
+	<string>1:932910056370:ios:bcf1a180bb88ebaaa01aab</string>
 </dict>
 </plist>

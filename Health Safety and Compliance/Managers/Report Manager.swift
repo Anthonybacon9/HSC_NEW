@@ -31,6 +31,7 @@ struct Report {
     var personGender: String
     var personAge: String
     var actionsTaken: String
+    var reportUserID: String
 
     init(
         firstName: String,
@@ -55,7 +56,8 @@ struct Report {
         partOfBody: String,
         personGender: String,
         personAge: String,
-        actionsTaken: String
+        actionsTaken: String,
+        reportUserID: String
     ) {
         self.firstName = firstName
         self.lastName = lastName
@@ -80,6 +82,7 @@ struct Report {
         self.personGender = personGender
         self.personAge = personAge
         self.actionsTaken = actionsTaken
+        self.reportUserID = reportUserID
     }
 }
 

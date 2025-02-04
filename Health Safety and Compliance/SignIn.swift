@@ -2,10 +2,6 @@ import SwiftUI
 import FirebaseAuth
 import FirebaseFirestore
 
-struct Contract: Identifiable {
-    let id = UUID()
-    let name: String
-}
 
 struct SignInRecord: Identifiable {
     let id = UUID()  // Swift will generate the id automatically
@@ -15,32 +11,50 @@ struct SignInRecord: Identifiable {
     let contract: String
     let firstName: String
     let lastName: String
+    let signedInBy: String?
 }
 
-let contracts = [
-    Contract(name: "ECO4"),
-    Contract(name: "Plus Dane SHDF"),
-    Contract(name: "Torus"),
-    Contract(name: "Livv SHDF"),
-    Contract(name: "Sandwell SHDF"),
-    Contract(name: "WMCA HUG"),
-    Contract(name: "Northumberland HUG"),
-    Contract(name: "Manchester HUG"),
-    Contract(name: "Cheshire East HUG"),
-    Contract(name: "Weaver Vale")
-]
+var contracts: [Contract] = []
 
+func fetchContractsFromFirebase() {
+    let db = Firestore.firestore()
+    
+    if let user = Auth.auth().currentUser {
+        print("User is authenticated: \(user.uid)")
+    } else {
+        print("User is not authenticated")
+    }
+    
+    db.collection("contracts").order(by: "name").getDocuments { (snapshot, error) in
+        if let error = error {
+            print("Error fetching contracts: \(error.localizedDescription)")
+            return
+        }
+        
+        // Parse documents into Contract objects
+        if let snapshot = snapshot {
+            contracts = snapshot.documents.compactMap { doc in
+                guard let name = doc.data()["name"] as? String else {
+                    return nil
+                }
+                return Contract(name: name) // Automatically generates a UUID for `id`
+            }
+            //print("Contracts fetched: \(contracts)")
+        }
+    }
+}
 
 
 struct SignIn: View {
     @StateObject private var timeManager = TimeManager()
     @StateObject private var locationManager = LocationManager()
+
     
     @AppStorage("signedIn") var signedIn: Bool = false
     @AppStorage("isAuthenticated") var isAuthenticated: Bool = false
-    @AppStorage("firstName") var firstName: String = "Test"
-    @AppStorage("lastName") var lastName: String = "Test"
-    @AppStorage("uid") var userId: String = "1"
+    @AppStorage("firstName") var firstName: String = ""
+    @AppStorage("lastName") var lastName: String = ""
+    @AppStorage("uid") var userId: String?
     @AppStorage("isAdmin") var isAdmin: Bool = false
     
     @State private var adminView: Bool = false
@@ -48,6 +62,11 @@ struct SignIn: View {
     @State private var selectedContract: Contract?
     @State private var isCalendarPresented = false
     @State private var selectedDate = Date()
+    
+    @State private var isManualRegisterShowing: Bool = false
+    @State private var guestFirstName: String = ""
+    @State private var guestLastName: String = ""
+    @State private var guestStatus: String = ""
     
     @State private var showAlert = false
     @State private var alertMessage = ""
@@ -61,6 +80,9 @@ struct SignIn: View {
     @State private var question6Answer = false
     @State private var question7Answer = false
     @State private var question8Answer = false
+    @State private var question9Answer = false
+    
+    
     
     
     
@@ -211,11 +233,14 @@ struct SignIn: View {
                         .padding(.vertical, 15)
                         .scaleEffect(signedIn ? 1.05 : 1.0)
                         .animation(.easeInOut(duration: 0.3), value: signedIn)
+                        
+                        
                     }
                     .disabled(!isAuthenticated)
+                    
                     .sheet(isPresented: $showSignInSheet) {
                         VStack {
-                            Text("Point of works risk assessment")
+                            Text("Point of works Risk Assessment")
                                 .font(.headline)
                                 .padding()
                             
@@ -233,21 +258,23 @@ struct SignIn: View {
                                 .padding(.bottom, 10)
                             Toggle("I know and understand what actions to take in the event of an emergency", isOn: $question7Answer)
                                 .padding(.bottom, 10)
-                            Toggle("Do you have evidence of your identification/qualifications on hand?", isOn: $question8Answer)
+                            Toggle("I have evidence of my identification/qualifications to hand", isOn: $question8Answer)
+                                .padding(.bottom, 10)
+                            Toggle("I have assessed the point of works for risk", isOn: $question9Answer)
                                 .padding(.bottom, 10)
                             
                             Button(action: {
                                 if question1Answer && question2Answer && question3Answer && question4Answer && question5Answer && question6Answer && question7Answer && question8Answer {
                                     // All questions are answered, proceed with sign-in
-                                    showSignInSheet = false
-                                    question1Answer = false
-                                    question2Answer = false
-                                    question3Answer = false
-                                    question4Answer = false
-                                    question5Answer = false
-                                    question6Answer = false
-                                    question7Answer = false
-                                    question8Answer = false
+//                                    showSignInSheet = false
+//                                    question1Answer = false
+//                                    question2Answer = false
+//                                    question3Answer = false
+//                                    question4Answer = false
+//                                    question5Answer = false
+//                                    question6Answer = false
+//                                    question7Answer = false
+//                                    question8Answer = false
                                     
                                     let time = signInManager?.formatDate(date: Date()) ?? ""
                                     let location = locationManager.userAddress ?? "Location unavailable"
@@ -285,6 +312,105 @@ struct SignIn: View {
                         .background(Color(UIColor.systemBackground))
                         .cornerRadius(20)
                     }
+                    Button {
+                        isManualRegisterShowing = true
+                    } label: {
+                        HStack {
+                            Image(systemName: "person.2.fill")
+                            Text("Anyone without a device?")
+                        }
+                        .foregroundStyle(.green)
+                    }
+                    
+                    .sheet(isPresented: $isManualRegisterShowing) {
+                        let time = signInManager?.formatDate(date: Date()) ?? ""
+                        let location = locationManager.userAddress ?? "Location unavailable"
+                        let contractName = selectedContract?.name ?? "No Contract Selected"
+
+                        VStack(spacing: 20) {
+                            // Header
+                            Text("Welcome, Guest")
+                                .font(.title2)
+                                .fontWeight(.bold)
+                            
+                            // Tooltip / Hint
+                            Text("""
+                            You should only use this feature when:
+                            • A co-worker doesn't have access to a smartphone/tablet.
+                            • A visitor or guest is on site and needs to register their presence.
+                            • A co-workers device is malfunctioning or cannot connect to the system.
+                            """)
+                                .font(.caption)
+                                .foregroundColor(.gray)
+                                .padding()
+                                .background(
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .fill(Color(.systemGray6))
+                                        .shadow(color: Color(.black).opacity(0.1), radius: 3, x: 0, y: 2)
+                                )
+                                .padding(.horizontal)
+
+                            // Guest Status Picker
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text("Select Status")
+                                    .font(.subheadline)
+                                    .fontWeight(.semibold)
+                                
+                                Picker("", selection: $guestStatus) {
+                                    Text("Sign In").tag("Signing In")
+                                    Text("Sign Out").tag("Signing Out")
+                                }
+                                .pickerStyle(SegmentedPickerStyle())
+                            }
+                            .padding(.horizontal)
+
+                            // Name Input Fields
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text("Guest Name")
+                                    .font(.subheadline)
+                                    .fontWeight(.semibold)
+                                
+                                HStack(spacing: 12) {
+                                    TextField("Forename", text: $guestFirstName)
+                                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                                    
+                                    TextField("Surname", text: $guestLastName)
+                                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                                }
+                            }
+                            .padding(.horizontal)
+                            
+                            Spacer()
+
+                            // Done Button
+                            Button(action: {
+                                signInManager?.addSignInRecordManually(
+                                    firstName1: guestFirstName,
+                                    lastName1: guestLastName,
+                                    time: time,
+                                    location: location,
+                                    status: guestStatus,
+                                    contractName: contractName,
+                                    signedInBy: "\(firstName) \(lastName)"
+                                )
+                                guestFirstName = ""
+                                guestLastName = ""
+                                isManualRegisterShowing = false
+                            }) {
+                                Text("Done")
+                                    .frame(maxWidth: .infinity)
+                                    .padding()
+                                    .background(Color.green)
+                                    .foregroundColor(.white)
+                                    .cornerRadius(8)
+                            }
+                            .padding(.horizontal)
+
+                        }
+                        .frame(width: 320)
+                        .padding(.top)
+                    }
+                    
                 } else {
                     Text("Select a contract to sign in")
                         .italic()
@@ -328,7 +454,8 @@ struct SignIn: View {
             }
             .onAppear {
                 // Initialize the signInManager when the view appears
-                signInManager = SignInManager(userId: userId, firstName: firstName, lastName: lastName)
+                fetchContractsFromFirebase()
+                signInManager = SignInManager(userId: userId ?? "0", firstName: firstName, lastName: lastName)
                 signInManager?.fetchSignInRecords(isAdmin: adminView) // Fetch records on appear
             }
         }

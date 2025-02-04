@@ -1,0 +1,346 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "" : {
+
+    },
+    "%@ %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ %2$@"
+          }
+        }
+      }
+    },
+    "Account" : {
+
+    },
+    "Add New Contract" : {
+
+    },
+    "Admin" : {
+
+    },
+    "Administrator" : {
+
+    },
+    "Already have an account? Sign In" : {
+
+    },
+    "Anyone without a device?" : {
+
+    },
+    "Are you a subcontractor?" : {
+
+    },
+    "Asbestos Awareness" : {
+
+    },
+    "Asbestos Documentation" : {
+
+    },
+    "Asbestos Safe" : {
+
+    },
+    "Change Password" : {
+
+    },
+    "Close" : {
+
+    },
+    "Confirm New Password" : {
+
+    },
+    "Confirm Password" : {
+
+    },
+    "Confirm Submission" : {
+
+    },
+    "Contract Name" : {
+
+    },
+    "Contract: %@" : {
+
+    },
+    "Create Account" : {
+
+    },
+    "Current Contracts" : {
+
+    },
+    "Date of Report" : {
+
+    },
+    "Describe Actions Taken to Prevent From Happening Again" : {
+
+    },
+    "Describe the Accident" : {
+
+    },
+    "Describe the Incident" : {
+
+    },
+    "Describe the Near Miss" : {
+
+    },
+    "Dismiss" : {
+
+    },
+    "Don't have an account? Create one" : {
+
+    },
+    "Done" : {
+
+    },
+    "Edit" : {
+
+    },
+    "Edit Contracts" : {
+
+    },
+    "Email" : {
+
+    },
+    "Enter Code" : {
+
+    },
+    "Expiry Date:" : {
+
+    },
+    "Face Fit" : {
+
+    },
+    "Facefit" : {
+
+    },
+    "First Name" : {
+
+    },
+    "Forename" : {
+
+    },
+    "Generate" : {
+
+    },
+    "Guest Name" : {
+
+    },
+    "I have assessed the point of works for risk" : {
+
+    },
+    "I have been trained to do the task and operate the equipment provided" : {
+
+    },
+    "I have evidence of my identification/qualifications to hand" : {
+
+    },
+    "I have got the correct information to do the job" : {
+
+    },
+    "I have read and understood the relevant safe systems of work" : {
+
+    },
+    "I have the correct equipment" : {
+
+    },
+    "I have the correct PPE for the task" : {
+
+    },
+    "I know and understand what actions to take in the event of an emergency" : {
+
+    },
+    "I understand what measures I must do to control the hazards / risks" : {
+
+    },
+    "Induction Confirmation" : {
+
+    },
+    "Invalid or expired invite code." : {
+
+    },
+    "Invite Code" : {
+
+    },
+    "Last Name" : {
+
+    },
+    "Loading..." : {
+
+    },
+    "Location" : {
+
+    },
+    "Location: %@" : {
+
+    },
+    "New Contract Name" : {
+
+    },
+    "New Password" : {
+
+    },
+    "Next Energy Employee" : {
+
+    },
+    "No Report Attached" : {
+
+    },
+    "Not Asbestos Safe" : {
+
+    },
+    "OK" : {
+
+    },
+    "Passport" : {
+
+    },
+    "Password" : {
+
+    },
+    "Password must be at least 12 characters long, include at least one uppercase letter, one number, and one symbol." : {
+
+    },
+    "Passwords do not match" : {
+
+    },
+    "Person's Age" : {
+
+    },
+    "Phone Number" : {
+
+    },
+    "Point of works Risk Assessment" : {
+
+    },
+    "Profile" : {
+
+    },
+    "Projects" : {
+
+    },
+    "Qualifications" : {
+
+    },
+    "Register" : {
+
+    },
+    "Report" : {
+
+    },
+    "Report Attached" : {
+
+    },
+    "Report Type" : {
+
+    },
+    "Review Report" : {
+
+    },
+    "Save Expiry Date" : {
+
+    },
+    "Search addresses" : {
+
+    },
+    "Select a contract to sign in" : {
+
+    },
+    "Select Date" : {
+
+    },
+    "Select Expiry Date" : {
+
+    },
+    "Select Job Role" : {
+
+    },
+    "Select Status" : {
+
+    },
+    "Select Subcontractor" : {
+
+    },
+    "Send Code" : {
+
+    },
+    "Sign In" : {
+
+    },
+    "Sign Out" : {
+
+    },
+    "Status: %@" : {
+
+    },
+    "Submit Report" : {
+
+    },
+    "Surname" : {
+
+    },
+    "Time of the Accident" : {
+
+    },
+    "Time of the Incident" : {
+
+    },
+    "Time: %@" : {
+
+    },
+    "Update Password" : {
+
+    },
+    "Upload Image" : {
+
+    },
+    "Upload PDF" : {
+
+    },
+    "Upload your Asbestos Certifications here" : {
+
+    },
+    "Upload your Face Fit Certifications here" : {
+
+    },
+    "User" : {
+
+    },
+    "Verify Code" : {
+
+    },
+    "Warning" : {
+
+    },
+    "Was there a safety breach involved?" : {
+
+    },
+    "Was there an injury reported?" : {
+
+    },
+    "Was there any damage reported?" : {
+
+    },
+    "Welcome, Guest" : {
+
+    },
+    "What is your Safety F1rst observation?" : {
+
+    },
+    "Who is Your Line Manager?" : {
+
+    },
+    "Witness Names (if any)" : {
+
+    },
+    "You should only use this feature when:\n• A co-worker doesn't have access to a smartphone/tablet.\n• A visitor or guest is on site and needs to register their presence.\n• A co-workers device is malfunctioning or cannot connect to the system." : {
+
+    },
+    "Your Address" : {
+
+    }
+  },
+  "version" : "1.0"
+}

@@ -47,6 +47,8 @@ class FirestoreManager {
             collectionName = "Incidents"
         case .nearMiss:
             collectionName = "NearMisses"
+        case .s1:
+            collectionName = "S1s"
         }
         
         // Add the report to the appropriate collection
