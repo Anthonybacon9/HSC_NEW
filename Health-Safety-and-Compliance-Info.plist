@@ -36,8 +36,6 @@
 			</array>
 		</dict>
 	</array>
-	<key>FirebaseAppDelegateProxyEnabled</key>
-	<false/>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Poppins-Medium.ttf</string>

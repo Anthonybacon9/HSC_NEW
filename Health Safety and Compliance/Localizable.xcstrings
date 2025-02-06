@@ -104,7 +104,7 @@
     "Email" : {
 
     },
-    "Enter Code" : {
+    "Enter Verification Code" : {
 
     },
     "Expiry Date:" : {
@@ -176,6 +176,9 @@
     "Location: %@" : {
 
     },
+    "Multi-Factor Authentication" : {
+
+    },
     "New Contract Name" : {
 
     },
@@ -192,6 +195,9 @@
 
     },
     "OK" : {
+
+    },
+    "Or enter the key manually: %@" : {
 
     },
     "Passport" : {
@@ -242,6 +248,9 @@
     "Save Expiry Date" : {
 
     },
+    "Scan this QR code with your authenticator app:" : {
+
+    },
     "Search addresses" : {
 
     },
@@ -263,16 +272,19 @@
     "Select Subcontractor" : {
 
     },
-    "Send Code" : {
+    "Sign In" : {
 
     },
-    "Sign In" : {
+    "Sign in with Phone Number" : {
 
     },
     "Sign Out" : {
 
     },
     "Status: %@" : {
+
+    },
+    "Submit Code" : {
 
     },
     "Submit Report" : {
@@ -306,9 +318,6 @@
 
     },
     "User" : {
-
-    },
-    "Verify Code" : {
 
     },
     "Warning" : {

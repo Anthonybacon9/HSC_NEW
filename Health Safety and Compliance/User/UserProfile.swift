@@ -35,6 +35,8 @@ struct UserProfile: View {
     @State private var phoneNumber = ""
     @State private var countryCode: String = "+44"
     @State private var isAuthPresented = true
+    @State private var isPhoneAuthSelected = false
+    @State private var verificationCode: String = ""
     
     @State private var email = ""
     @State private var password = ""
@@ -101,12 +103,10 @@ struct UserProfile: View {
                         .cornerRadius(20)
                     }
                 } else {
-                    Group {
-                        if isCreatingAccount {
-                            signUpForm
-                        } else {
-                            signInForm
-                        }
+                    if isCreatingAccount {
+                        signUpForm
+                    } else {
+                        signInForm
                     }
                 }
             }
@@ -433,54 +433,55 @@ struct UserProfile: View {
                         .foregroundStyle(.secondary)
                 }
             }
-        }.popover(isPresented: $isAuthPresented) {
-            // Your popover content goes here
-            VStack {
-                Text("Enter Phone Number")
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .padding(.bottom, 10)
-                HStack {
-                    Text("🇬🇧+44")
-                        .font(.body)
-                        .fontWeight(.semibold)
-                        .foregroundColor(generatedInviteCode.isEmpty ? .secondary : .primary)
-                        .lineLimit(1)
-                    
-                    TextField("Phone Number", text: $phoneNumber)
-                        .keyboardType(.phonePad)
-                    
-                    if !generatedInviteCode.isEmpty {
-                        Button(action: { UIPasteboard.general.string = generatedInviteCode }) {
-                            Image(systemName: "doc.on.doc")
-                                .foregroundColor(.blue)
-                                .padding(8)
-                                .background(Circle().fill(Color.white).shadow(radius: 3))
-                        }
-                    }
-                    
-                    Spacer()
-                    
-                    Button(action: {
-                        sendVerificationCode()
-                        print(phoneNumber)
-                    }) {
-                        Text("Send Code")
-                            .fontWeight(.semibold)
-                            .foregroundColor(.white)
-                            .padding(.horizontal, 20)
-                            .padding(.vertical, 10)
-                            .background(Color.green)
-                            .cornerRadius(10)
-                            .shadow(radius: 5)
-                    }
-                }
-                .frame(width: 325)
-                .padding()
-                .background(Color(UIColor.systemGray6))
-                .cornerRadius(15)
-            }
         }
+//        .popover(isPresented: $isAuthPresented) {
+//            // Your popover content goes here
+//            VStack {
+//                Text("Enter Phone Number")
+//                    .font(.title)
+//                    .fontWeight(.bold)
+//                    .padding(.bottom, 10)
+//                HStack {
+//                    Text("🇬🇧+44")
+//                        .font(.body)
+//                        .fontWeight(.semibold)
+//                        .foregroundColor(generatedInviteCode.isEmpty ? .secondary : .primary)
+//                        .lineLimit(1)
+//                    
+//                    TextField("Phone Number", text: $phoneNumber)
+//                        .keyboardType(.phonePad)
+//                    
+//                    if !generatedInviteCode.isEmpty {
+//                        Button(action: { UIPasteboard.general.string = generatedInviteCode }) {
+//                            Image(systemName: "doc.on.doc")
+//                                .foregroundColor(.blue)
+//                                .padding(8)
+//                                .background(Circle().fill(Color.white).shadow(radius: 3))
+//                        }
+//                    }
+//                    
+//                    Spacer()
+//                    
+//                    Button(action: {
+//                        sendVerificationCode()
+//                        print(phoneNumber)
+//                    }) {
+//                        Text("Send Code")
+//                            .fontWeight(.semibold)
+//                            .foregroundColor(.white)
+//                            .padding(.horizontal, 20)
+//                            .padding(.vertical, 10)
+//                            .background(Color.green)
+//                            .cornerRadius(10)
+//                            .shadow(radius: 5)
+//                    }
+//                }
+//                .frame(width: 325)
+//                .padding()
+//                .background(Color(UIColor.systemGray6))
+//                .cornerRadius(15)
+//            }
+//        }
     }
     
     // MARK: - Account Management Section
@@ -554,8 +555,33 @@ struct UserProfile: View {
                     .cornerRadius(10)
             }
             .buttonStyle(PlainButtonStyle())
+            
+            Button(action: signOut) {
+                Rectangle()
+                    .fill(Color.orange)
+                    .opacity(0.3)
+                    .background(.thinMaterial)
+                    .frame(height: 150)
+                    .overlay(
+                        VStack(spacing: 10) {  // Added spacing for better layout
+                            Image(systemName: "arrowshape.turn.up.left.fill")
+                                .font(.system(size: 40))  // Smaller icon size
+                            Text("Multi-Factor Authentication")
+                                .font(.title3)  // Adjusted text size
+                                .multilineTextAlignment(.center)
+                                .frame(maxWidth: .infinity)
+                                .padding(.horizontal)  // Added horizontal padding for better alignment
+                        }
+                            .foregroundColor(.orange)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    )
+                    .cornerRadius(10)
+            }
+            .buttonStyle(PlainButtonStyle())
         }
     }
+    
+    
     
     // MARK: - Admin Section
     private var adminSection: some View {
@@ -709,6 +735,11 @@ struct UserProfile: View {
             Button(action: signIn) { Text("Sign In").padding().background(Color.green).foregroundColor(.white).cornerRadius(8) }
             
             Button(action: { isCreatingAccount = true }) { Text("Don't have an account? Create one").foregroundColor(.blue) }
+            
+            Button("Sign in with Phone Number") {
+                        isPhoneAuthSelected = true
+                    }
+                    .foregroundColor(.blue)
         }.padding()
     }
     
@@ -748,9 +779,9 @@ struct UserProfile: View {
                 TextField("Email", text: $email)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                 
-//                TextField("Phone Number", text: $phoneNumber)
-//                    .textFieldStyle(RoundedBorderTextFieldStyle())
-//                    .keyboardType(.phonePad)
+                TextField("Phone Number", text: $phoneNumber)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .keyboardType(.phonePad)
                 
                 // Password and Confirm Password
                 VStack(alignment: .leading, spacing: 5) {
@@ -808,6 +839,7 @@ struct UserProfile: View {
                         .foregroundColor(.red)
                         .font(.caption)
                 }
+                
                 // Create Account Button
                 Button(action: {
                     createAccount()
@@ -834,6 +866,156 @@ struct UserProfile: View {
             .onAppear(perform: fetchJobRoles)
         }
     }
+    
+    private func createAccount() {
+        guard password == confirmPassword else {
+            errorMessage = "Passwords do not match."
+            return
+        }
+        
+        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+            if let error = error {
+                errorMessage = error.localizedDescription
+                return
+            }
+            
+            guard let user = authResult?.user else { return }
+            let fullName = "\(firstName) \(lastName)"
+            
+            userId = user.uid
+            
+            // Store user data and set MFA pending flag
+            Firestore.firestore().collection("users").document(user.uid).setData([
+                "firstName": firstName,
+                "lastName": lastName,
+                "email": email,
+                "isAdmin": isAdmin,
+                "employer": selectedSubcontractor,
+                "jobRole": selectedJobRole,
+                "inviteCode": inviteCode,
+                "uid": user.uid,
+                "phoneNumber": phoneNumber,
+                "isMFACompleted": false // Set flag to false until MFA is completed
+            ]) { _ in
+                let changeRequest = user.createProfileChangeRequest()
+                changeRequest.displayName = fullName
+                changeRequest.commitChanges { error in
+                    if error == nil {
+                        // Proceed to TOTP enrollment
+                        self.enrollUserInTOTP(user: user)
+                        
+                        // After account creation, hide the sign-up form and set MFA pending
+                        isCreatingAccount = false
+                    }
+                }
+            }
+        }
+    }
+    
+    private func enrollUserInTOTP(user: FirebaseAuth.User) {
+        Task {
+            do {
+                // Generate a TOTP secret
+                guard let mfaSession = try? await user.multiFactor.session() else { return }
+                guard let totpSecret = try? await TOTPMultiFactorGenerator.generateSecret(with: mfaSession) else { return }
+                
+                // Display the secret to the user (show them the QR code or secret)
+                let otpAuthUri = totpSecret.generateQRCodeURL(
+                    withAccountName: user.email ?? "default account",
+                    issuer: "Your App Name"
+                )
+                
+                // Convert string to URL and show the QR code screen
+                if let otpAuthUriURL = URL(string: otpAuthUri) {
+                    self.showQRCodeScreen(otpAuthUri: otpAuthUriURL, totpSecret: totpSecret)
+                }
+                
+            } catch {
+                // Handle error (e.g., incorrect or expired TOTP)
+            }
+        }
+    }
+    
+    private func showQRCodeScreen(otpAuthUri: URL, totpSecret: TOTPSecret) {
+        // Show a screen with the QR code and secret for MFA setup
+        VStack {
+            Text("Scan this QR code with your authenticator app:")
+                .font(.headline)
+            
+            Image(systemName: "qrcode.viewfinder")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 200, height: 200)
+            
+            Text("Or enter the key manually: \(otpAuthUri.absoluteString)")
+                .font(.caption)
+                .padding()
+            
+            // Field for entering the verification code
+            TextField("Enter Verification Code", text: $verificationCode)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .keyboardType(.numberPad)
+                .padding()
+            
+            Button("Submit Code") {
+                finalizeTOTPEnrollment(totpSecret: totpSecret, code: verificationCode)
+            }
+            .padding()
+            .background(Color.green)
+            .foregroundColor(.white)
+            .cornerRadius(8)
+        }
+    }
+    
+    private func finalizeTOTPEnrollment(totpSecret: TOTPSecret, code: String) {
+        Task {
+            do {
+                guard let user = Auth.auth().currentUser else { return }
+                
+                // Finalize TOTP MFA enrollment with the entered verification code
+                let multiFactorAssertion = TOTPMultiFactorGenerator.assertionForEnrollment(
+                    with: totpSecret,
+                    oneTimePassword: code
+                )
+                
+                try await user.multiFactor.enroll(
+                    with: multiFactorAssertion,
+                    displayName: "TOTP"
+                )
+                
+                // Mark the user as having completed MFA
+                try await Firestore.firestore().collection("users").document(user.uid).updateData([
+                    "isMFACompleted": true // Mark MFA as completed
+                ])
+                
+                // Successfully enrolled in MFA, now sign in the user
+                self.isAuthenticated = true
+                
+                // Proceed to the main app or home screen
+                // Navigate the user to the main screen
+            } catch {
+                // Handle error (e.g., invalid verification code)
+                self.errorMessage = "Invalid verification code. Please try again."
+            }
+        }
+    }
+    
+    private func checkMFAStatusAndSignIn(user: FirebaseAuth.User) {
+        Firestore.firestore().collection("users").document(user.uid).getDocument { document, error in
+            if let document = document, document.exists {
+                let isMFACompleted = document.data()?["isMFACompleted"] as? Bool ?? false
+                if isMFACompleted {
+                    self.isAuthenticated = true
+                } else {
+                    self.isAuthenticated = false
+                    // Show MFA setup screen if needed
+                }
+            } else {
+                // Handle error
+            }
+        }
+    }
+
     
     private func signOut() {
         do {
@@ -870,47 +1052,8 @@ struct UserProfile: View {
         }
     }
     
-    private func createAccount() {
-        guard password == confirmPassword else {
-            errorMessage = "Passwords do not match."
-            return
-        }
-        
-        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
-            if let error = error {
-                errorMessage = error.localizedDescription
-                return
-            }
-            
-            guard let user = authResult?.user else { return }
-            let fullName = "\(firstName) \(lastName)"
-            
-            userId = user.uid
-            
-            Firestore.firestore().collection("users").document(user.uid).setData([
-                "firstName": firstName,
-                "lastName": lastName,
-                "email": email,
-                "isAdmin": isAdmin,
-                "employer": selectedSubcontractor,
-                "jobRole": selectedJobRole,
-                "inviteCode": inviteCode,
-                "uid": user.uid,
-                "phoneNumber": phoneNumber
-            ]) { _ in
-                let changeRequest = user.createProfileChangeRequest()
-                changeRequest.displayName = fullName
-                changeRequest.commitChanges { error in
-                    if error == nil {
-                        isAuthenticated = true
-                        username = fullName
-                    }
-                }
-            }
-        }
-    }
     
-    private func fetchUserData(userId: String) {
+    func fetchUserData(userId: String) {
         Firestore.firestore().collection("users").document(userId).getDocument { document, _ in
             if let data = document?.data() {
                 firstName = data["firstName"] as? String ?? ""
@@ -920,23 +1063,12 @@ struct UserProfile: View {
                 job = data["jobRole"] as? String ?? "no job selected"
                 phoneNumber = data["phoneNumber"] as? String ?? "no phone number"
                 
-                print(data["jobRole"] as? String ?? "NO ROLE FOUNd")
+                username = "\(firstName) \(lastName)"
             }
-            
         }
     }
     
-    private func sendVerificationCode() {
-        let phoneNumber1 = "\(countryCode)\(phoneNumber)"
-        PhoneAuthProvider.provider().verifyPhoneNumber(phoneNumber1, uiDelegate: nil) { verificationID, error in
-            if let error = error {
-                self.errorMessage = error.localizedDescription
-                return
-            }
-            
-            UserDefaults.standard.set(verificationID, forKey: "authVerificationID")
-        }
-    }
+    
 //
 //    private func verifyCode() {
 //        guard let verificationID = UserDefaults.standard.string(forKey: "authVerificationID") else { return }
@@ -956,6 +1088,13 @@ struct UserProfile: View {
 //            createAccount()
 //        }
 //    }
+    
+    
+        
+        
+        
+    
+    
     
     fileprivate func QualificationsSheet() -> some View {
         return ZStack {
@@ -1629,6 +1768,8 @@ struct ImagePicker: UIViewControllerRepresentable {
         }
     }
 }
+
+
 
 
 class AddressViewModel: ObservableObject {
