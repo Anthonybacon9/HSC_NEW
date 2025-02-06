@@ -556,7 +556,7 @@ struct UserProfile: View {
             }
             .buttonStyle(PlainButtonStyle())
             
-            Button(action: signOut) {
+            Button(action: setupMFA) {
                 Rectangle()
                     .fill(Color.orange)
                     .opacity(0.3)
@@ -564,7 +564,7 @@ struct UserProfile: View {
                     .frame(height: 150)
                     .overlay(
                         VStack(spacing: 10) {  // Added spacing for better layout
-                            Image(systemName: "arrowshape.turn.up.left.fill")
+                            Image(systemName: "lock.shield.fill")
                                 .font(.system(size: 40))  // Smaller icon size
                             Text("Multi-Factor Authentication")
                                 .font(.title3)  // Adjusted text size
@@ -744,277 +744,374 @@ struct UserProfile: View {
     }
     
     private var signUpForm: some View {
-        ScrollView {
-            VStack(spacing: 20) {
-                // Title
-                Text("Create Account")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .padding(.bottom, 10)
-                
-                // Invite Code
-                VStack(alignment: .leading, spacing: 5) {
-                    TextField("Invite Code", text: $inviteCode)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                    
-                    if isShowingInviteCodeError {
-                        Text("Invalid or expired invite code.")
-                            .foregroundColor(.red)
-                            .font(.caption)
-                    }
-                }
-                
-                // First Name and Last Name on the same line
-                HStack {
-                    TextField("First Name", text: $firstName)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .frame(maxWidth: .infinity)
-                    
-                    TextField("Last Name", text: $lastName)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .frame(maxWidth: .infinity)
-                }
-                
-                // Email
-                TextField("Email", text: $email)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                
-                TextField("Phone Number", text: $phoneNumber)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .keyboardType(.phonePad)
-                
-                // Password and Confirm Password
-                VStack(alignment: .leading, spacing: 5) {
-                    SecureField("Password", text: $password)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                    
-                    SecureField("Confirm Password", text: $confirmPassword)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                    
-                    // Validation messages
-                    if !isPasswordValid(password) {
-                        Text("Password must be at least 12 characters long, include at least one uppercase letter, one number, and one symbol.")
-                            .foregroundColor(.gray)
-                            .font(.caption)
-                    }
-                    
-                    if password != confirmPassword && !confirmPassword.isEmpty {
-                        Text("Passwords do not match")
-                            .foregroundColor(.red)
-                            .font(.caption)
-                    }
-                }
-                
-                // Job Role Picker
-                Picker("Select Job Role", selection: $selectedJobRole) {
-                    ForEach(jobRoles, id: \.self) { role in
-                        Text(role)
-                    }
-                }
-                .pickerStyle(MenuPickerStyle())
-                .padding(.horizontal)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                
-                // Subcontractor Toggle and Picker
-                VStack(alignment: .leading, spacing: 5) {
-                    Toggle("Are you a subcontractor?", isOn: $isSubcontractor)
-                        .padding(.vertical, 5)
-                    
-                    if isSubcontractor {
-                        Picker("Select Subcontractor", selection: $selectedSubcontractor) {
-                            ForEach(subcontractors, id: \.self) { Text($0) }
-                        }
-                        .pickerStyle(MenuPickerStyle())
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    } else {
-                        Text("Next Energy Employee")
-                            .foregroundColor(.gray)
-                            .font(.caption)
-                    }
-                }
-                
-                // Error Message
-                if let error = errorMessage, !error.isEmpty {
-                    Text(error)
-                        .foregroundColor(.red)
-                        .font(.caption)
-                }
-                
-                // Create Account Button
-                Button(action: {
-                    createAccount()
-                    isAuthPresented = true
-                }) {
+            ScrollView {
+                VStack(spacing: 20) {
+                    // Title
                     Text("Create Account")
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(isPasswordValid(password) && password == confirmPassword ? Color.green : Color.gray)
-                        .foregroundColor(.white)
-                        .cornerRadius(8)
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .padding(.bottom, 10)
+                    
+                    // Invite Code
+                    VStack(alignment: .leading, spacing: 5) {
+                        TextField("Invite Code", text: $inviteCode)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                        
+                        if isShowingInviteCodeError {
+                            Text("Invalid or expired invite code.")
+                                .foregroundColor(.red)
+                                .font(.caption)
+                        }
+                    }
+                    
+                    // First Name and Last Name on the same line
+                    HStack {
+                        TextField("First Name", text: $firstName)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .frame(maxWidth: .infinity)
+                        
+                        TextField("Last Name", text: $lastName)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                            .frame(maxWidth: .infinity)
+                    }
+                    
+                    // Email
+                    TextField("Email", text: $email)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                    
+                    TextField("Phone Number", text: $phoneNumber)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .keyboardType(.phonePad)
+                    
+                    // Password and Confirm Password
+                    VStack(alignment: .leading, spacing: 5) {
+                        SecureField("Password", text: $password)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                        
+                        SecureField("Confirm Password", text: $confirmPassword)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
+                        
+                        // Validation messages
+                        if !isPasswordValid(password) {
+                            Text("Password must be at least 12 characters long, include at least one uppercase letter, one number, and one symbol.")
+                                .foregroundColor(.gray)
+                                .font(.caption)
+                        }
+                        
+                        if password != confirmPassword && !confirmPassword.isEmpty {
+                            Text("Passwords do not match")
+                                .foregroundColor(.red)
+                                .font(.caption)
+                        }
+                    }
+                    
+                    // Job Role Picker
+                    Picker("Select Job Role", selection: $selectedJobRole) {
+                        ForEach(jobRoles, id: \.self) { role in
+                            Text(role)
+                        }
+                    }
+                    .pickerStyle(MenuPickerStyle())
+                    .padding(.horizontal)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    // Subcontractor Toggle and Picker
+                    VStack(alignment: .leading, spacing: 5) {
+                        Toggle("Are you a subcontractor?", isOn: $isSubcontractor)
+                            .padding(.vertical, 5)
+                        
+                        if isSubcontractor {
+                            Picker("Select Subcontractor", selection: $selectedSubcontractor) {
+                                ForEach(subcontractors, id: \.self) { Text($0) }
+                            }
+                            .pickerStyle(MenuPickerStyle())
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        } else {
+                            Text("Next Energy Employee")
+                                .foregroundColor(.gray)
+                                .font(.caption)
+                        }
+                    }
+                    
+                    // Error Message
+                    if let error = errorMessage, !error.isEmpty {
+                        Text(error)
+                            .foregroundColor(.red)
+                            .font(.caption)
+                    }
+                    // Create Account Button
+                    Button(action: {
+                        createAccount()
+                        isAuthPresented = true
+                    }) {
+                        Text("Create Account")
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(isPasswordValid(password) && password == confirmPassword ? Color.green : Color.gray)
+                            .foregroundColor(.white)
+                            .cornerRadius(8)
+                    }
+                    .padding(.top, 10)
+                    .disabled(!isPasswordValid(password) || password != confirmPassword)
+                    
+                    // Sign In Button
+                    Button(action: { isCreatingAccount = false }) {
+                        Text("Already have an account? Sign In")
+                            .foregroundColor(.blue)
+                    }
                 }
-                .padding(.top, 10)
-                .disabled(!isPasswordValid(password) || password != confirmPassword)
-                
-                // Sign In Button
-                Button(action: { isCreatingAccount = false }) {
-                    Text("Already have an account? Sign In")
-                        .foregroundColor(.blue)
-                }
+                .padding()
+                .onAppear(perform: fetchSubcontractors)
+                .onAppear(perform: fetchJobRoles)
             }
-            .padding()
-            .onAppear(perform: fetchSubcontractors)
-            .onAppear(perform: fetchJobRoles)
         }
-    }
-    
+        
     private func createAccount() {
         guard password == confirmPassword else {
             errorMessage = "Passwords do not match."
             return
         }
-        
-        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
-            if let error = error {
-                errorMessage = error.localizedDescription
-                return
-            }
-            
-            guard let user = authResult?.user else { return }
-            let fullName = "\(firstName) \(lastName)"
-            
-            userId = user.uid
-            
-            // Store user data and set MFA pending flag
-            Firestore.firestore().collection("users").document(user.uid).setData([
-                "firstName": firstName,
-                "lastName": lastName,
-                "email": email,
-                "isAdmin": isAdmin,
-                "employer": selectedSubcontractor,
-                "jobRole": selectedJobRole,
-                "inviteCode": inviteCode,
-                "uid": user.uid,
-                "phoneNumber": phoneNumber,
-                "isMFACompleted": false // Set flag to false until MFA is completed
-            ]) { _ in
+
+        Task {
+            do {
+                let authResult = try await Auth.auth().createUser(withEmail: email, password: password)
+                let user = authResult.user
+                let fullName = "\(firstName) \(lastName)"
+
+                // Store user data in Firestore
+                try await Firestore.firestore().collection("users").document(user.uid).setData([
+                    "firstName": firstName,
+                    "lastName": lastName,
+                    "email": email,
+                    "isAdmin": isAdmin,
+                    "employer": selectedSubcontractor,
+                    "jobRole": selectedJobRole,
+                    "inviteCode": inviteCode,
+                    "uid": user.uid,
+                    "phoneNumber": phoneNumber
+                ])
+
+                // Update display name
                 let changeRequest = user.createProfileChangeRequest()
                 changeRequest.displayName = fullName
-                changeRequest.commitChanges { error in
-                    if error == nil {
-                        // Proceed to TOTP enrollment
-                        self.enrollUserInTOTP(user: user)
-                        
-                        // After account creation, hide the sign-up form and set MFA pending
-                        isCreatingAccount = false
-                    }
+                try await changeRequest.commitChanges()
+
+                // ✅ Send email verification
+                try await user.sendEmailVerification()
+
+                DispatchQueue.main.async {
+                    isAuthenticated = true
+                    username = fullName
+                    errorMessage = "Please verify your email before setting up MFA."
                 }
+
+            } catch {
+                print("Error: \(error.localizedDescription)")
+                errorMessage = error.localizedDescription
             }
         }
     }
     
-    private func enrollUserInTOTP(user: FirebaseAuth.User) {
+    private func setupMFA() {
         Task {
+            guard let user = Auth.auth().currentUser else { return }
+            
+            // ✅ Check if email is verified
+            try await user.reload() // Refresh user data
+            if !user.isEmailVerified {
+                errorMessage = "You need to verify your email before setting up MFA."
+                return
+            }
+
             do {
-                // Generate a TOTP secret
-                guard let mfaSession = try? await user.multiFactor.session() else { return }
-                guard let totpSecret = try? await TOTPMultiFactorGenerator.generateSecret(with: mfaSession) else { return }
-                
-                // Display the secret to the user (show them the QR code or secret)
+                // Re-authenticate the user
+                let credential = EmailAuthProvider.credential(withEmail: user.email ?? "", password: password)
+                try await user.reauthenticate(with: credential)
+
+                // Generate a TOTP MFA session
+                let mfaSession = try await user.multiFactor.session()
+                let totpSecret = try await TOTPMultiFactorGenerator.generateSecret(with: mfaSession)
+
+                // Generate a QR Code URL for the authentication app
                 let otpAuthUri = totpSecret.generateQRCodeURL(
                     withAccountName: user.email ?? "default account",
                     issuer: "Your App Name"
                 )
-                
-                // Convert string to URL and show the QR code screen
-                if let otpAuthUriURL = URL(string: otpAuthUri) {
-                    self.showQRCodeScreen(otpAuthUri: otpAuthUriURL, totpSecret: totpSecret)
-                }
-                
-            } catch {
-                // Handle error (e.g., incorrect or expired TOTP)
-            }
-        }
-    }
-    
-    private func showQRCodeScreen(otpAuthUri: URL, totpSecret: TOTPSecret) {
-        // Show a screen with the QR code and secret for MFA setup
-        VStack {
-            Text("Scan this QR code with your authenticator app:")
-                .font(.headline)
-            
-            Image(systemName: "qrcode.viewfinder")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 200, height: 200)
-            
-            Text("Or enter the key manually: \(otpAuthUri.absoluteString)")
-                .font(.caption)
-                .padding()
-            
-            // Field for entering the verification code
-            TextField("Enter Verification Code", text: $verificationCode)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .keyboardType(.numberPad)
-                .padding()
-            
-            Button("Submit Code") {
-                finalizeTOTPEnrollment(totpSecret: totpSecret, code: verificationCode)
-            }
-            .padding()
-            .background(Color.green)
-            .foregroundColor(.white)
-            .cornerRadius(8)
-        }
-    }
-    
-    private func finalizeTOTPEnrollment(totpSecret: TOTPSecret, code: String) {
-        Task {
-            do {
-                guard let user = Auth.auth().currentUser else { return }
-                
-                // Finalize TOTP MFA enrollment with the entered verification code
+
+                // Automatically open the authentication app
+                totpSecret.openInOTPApp(withQRCodeURL: otpAuthUri)
+
+                // Wait for the user to enter the TOTP code
+                let verificationCode = await promptForTOTPCode()
+
+                // Finalize MFA enrollment
                 let multiFactorAssertion = TOTPMultiFactorGenerator.assertionForEnrollment(
                     with: totpSecret,
-                    oneTimePassword: code
+                    oneTimePassword: verificationCode
                 )
-                
-                try await user.multiFactor.enroll(
-                    with: multiFactorAssertion,
-                    displayName: "TOTP"
-                )
-                
-                // Mark the user as having completed MFA
-                try await Firestore.firestore().collection("users").document(user.uid).updateData([
-                    "isMFACompleted": true // Mark MFA as completed
-                ])
-                
-                // Successfully enrolled in MFA, now sign in the user
-                self.isAuthenticated = true
-                
-                // Proceed to the main app or home screen
-                // Navigate the user to the main screen
+                try await user.multiFactor.enroll(with: multiFactorAssertion, displayName: "TOTP")
+
+                print("✅ MFA Enrollment Successful!")
+
             } catch {
-                // Handle error (e.g., invalid verification code)
-                self.errorMessage = "Invalid verification code. Please try again."
+                print("Error: \(error.localizedDescription)")
+                errorMessage = error.localizedDescription
             }
         }
     }
     
-    private func checkMFAStatusAndSignIn(user: FirebaseAuth.User) {
-        Firestore.firestore().collection("users").document(user.uid).getDocument { document, error in
-            if let document = document, document.exists {
-                let isMFACompleted = document.data()?["isMFACompleted"] as? Bool ?? false
-                if isMFACompleted {
-                    self.isAuthenticated = true
-                } else {
-                    self.isAuthenticated = false
-                    // Show MFA setup screen if needed
+    func promptForTOTPCode() async -> String {
+        return await withCheckedContinuation { continuation in
+            DispatchQueue.main.async {
+                let alert = UIAlertController(title: "Enter Verification Code",
+                                              message: "Enter the TOTP code from your authenticator app.",
+                                              preferredStyle: .alert)
+
+                alert.addTextField { textField in
+                    textField.placeholder = "6-digit code"
+                    textField.keyboardType = .numberPad
                 }
-            } else {
-                // Handle error
+
+                alert.addAction(UIAlertAction(title: "Submit", style: .default) { _ in
+                    if let code = alert.textFields?.first?.text {
+                        continuation.resume(returning: code)
+                    }
+                })
+
+                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { _ in
+                    continuation.resume(returning: "")
+                })
+
+                UIApplication.shared.windows.first?.rootViewController?.present(alert, animated: true)
             }
         }
     }
+    
+    
+
+//    private func enrollUserInTOTP(user: FirebaseAuth.User) {
+//        Task {
+//            do {
+//                // Generate a TOTP secret
+//                guard let mfaSession = try? await user.multiFactor.session() else { return }
+//                guard let totpSecret = try? await TOTPMultiFactorGenerator.generateSecret(with: mfaSession) else { return }
+//                
+//                // Display the secret to the user (show them the QR code or secret)
+//                let otpAuthUri = totpSecret.generateQRCodeURL(
+//                    withAccountName: user.email ?? "default account",
+//                    issuer: "Your App Name"
+//                )
+//                
+//                // Convert string to URL and show the QR code screen
+//                if let otpAuthUriURL = URL(string: otpAuthUri) {
+//                    self.showQRCodeScreen(otpAuthUri: otpAuthUriURL, totpSecret: totpSecret)
+//                }
+//                
+//            } catch {
+//                // Handle error (e.g., incorrect or expired TOTP)
+//            }
+//        }
+//    }
+
+//    private func showQRCodeScreen(otpAuthUri: URL, totpSecret: TOTPSecret) -> some View {
+//        VStack {
+//            Text("Scan this QR code with your authenticator app:")
+//                .font(.headline)
+//            
+//            Image(systemName: "qrcode.viewfinder")
+//                .resizable()
+//                .scaledToFit()
+//                .frame(width: 200, height: 200)
+//            
+//            Text("Or enter the key manually: \(otpAuthUri.absoluteString)")
+//                .font(.caption)
+//                .padding()
+//            
+//            // Field for entering the verification code
+//            TextField("Enter Verification Code", text: $verificationCode)
+//                .textFieldStyle(RoundedBorderTextFieldStyle())
+//                .keyboardType(.numberPad)
+//                .padding()
+//            
+//            Button("Submit Code") {
+//                finalizeTOTPEnrollment(totpSecret: totpSecret, code: verificationCode)
+//            }
+//            .padding()
+//            .background(Color.green)
+//            .foregroundColor(.white)
+//            .cornerRadius(8)
+//        }
+//    }
+
+//    private func finalizeTOTPEnrollment(totpSecret: TOTPSecret, code: String) {
+//        Task {
+//            do {
+//                guard let user = Auth.auth().currentUser else { return }
+//                
+//                // Finalize TOTP MFA enrollment with the entered verification code
+//                let multiFactorAssertion = TOTPMultiFactorGenerator.assertionForEnrollment(
+//                    with: totpSecret,
+//                    oneTimePassword: code
+//                )
+//                
+//                try await user.multiFactor.enroll(
+//                    with: multiFactorAssertion,
+//                    displayName: "TOTP"
+//                )
+//                
+//                // Successful enrollment, proceed to next screen
+//                // Handle post-enrollment logic here (e.g., navigating to the main app)
+//                
+//            } catch {
+//                // Handle error (e.g., invalid verification code)
+//            }
+//        }
+//    }
+    
+//    private func createAccount() {
+//        guard password == confirmPassword else {
+//            errorMessage = "Passwords do not match."
+//            return
+//        }
+//        
+//        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+//            if let error = error {
+//                errorMessage = error.localizedDescription
+//                return
+//            }
+//            
+//            guard let user = authResult?.user else { return }
+//            let fullName = "\(firstName) \(lastName)"
+//            
+//            userId = user.uid
+//            
+//            // Store user data and set MFA pending flag
+//            Firestore.firestore().collection("users").document(user.uid).setData([
+//                "firstName": firstName,
+//                "lastName": lastName,
+//                "email": email,
+//                "isAdmin": isAdmin,
+//                "employer": selectedSubcontractor,
+//                "jobRole": selectedJobRole,
+//                "inviteCode": inviteCode,
+//                "uid": user.uid,
+//                "phoneNumber": phoneNumber,
+//                "isMFACompleted": false // Set flag to false until MFA is completed
+//            ]) { _ in
+//                let changeRequest = user.createProfileChangeRequest()
+//                changeRequest.displayName = fullName
+//                changeRequest.commitChanges { error in
+//                    if error == nil {
+//                        // Proceed to TOTP enrollment
+////                        self.enrollUserInTOTP(user: user)
+//                        
+//                    }
+//                }
+//            }
+//        }
+//    }
+    
+    
 
     
     private func signOut() {
