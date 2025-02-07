@@ -915,36 +915,47 @@ struct UserProfile: View {
     private func setupMFA() {
         Task {
             guard let user = Auth.auth().currentUser else { return }
-            
-            // ✅ Check if email is verified
-            try await user.reload() // Refresh user data
+
+            // ✅ Refresh user data
+            try await user.reload()
             if !user.isEmailVerified {
                 errorMessage = "You need to verify your email before setting up MFA."
                 return
             }
 
+            // ✅ Ask the user for their password (since Firebase does not store it)
+            let passwordPrompt = await promptForPassword()
+            guard let password = passwordPrompt else {
+                errorMessage = "You must enter your password to proceed."
+                return
+            }
+
             do {
-                // Re-authenticate the user
+                // ✅ Re-authenticate using the re-entered password
                 let credential = EmailAuthProvider.credential(withEmail: user.email ?? "", password: password)
                 try await user.reauthenticate(with: credential)
 
-                // Generate a TOTP MFA session
+                // ✅ Generate a TOTP MFA session
                 let mfaSession = try await user.multiFactor.session()
                 let totpSecret = try await TOTPMultiFactorGenerator.generateSecret(with: mfaSession)
 
-                // Generate a QR Code URL for the authentication app
+                // ✅ Generate QR Code URL for the authenticator app
                 let otpAuthUri = totpSecret.generateQRCodeURL(
                     withAccountName: user.email ?? "default account",
                     issuer: "Your App Name"
                 )
 
-                // Automatically open the authentication app
+                // ✅ Open Google Authenticator or similar app
                 totpSecret.openInOTPApp(withQRCodeURL: otpAuthUri)
 
-                // Wait for the user to enter the TOTP code
+                // ✅ Wait for user to enter the TOTP code
                 let verificationCode = await promptForTOTPCode()
+                guard !verificationCode.isEmpty else {
+                    errorMessage = "You must enter a valid verification code."
+                    return
+                }
 
-                // Finalize MFA enrollment
+                // ✅ Finalize MFA Enrollment
                 let multiFactorAssertion = TOTPMultiFactorGenerator.assertionForEnrollment(
                     with: totpSecret,
                     oneTimePassword: verificationCode
@@ -956,6 +967,26 @@ struct UserProfile: View {
             } catch {
                 print("Error: \(error.localizedDescription)")
                 errorMessage = error.localizedDescription
+            }
+        }
+    }
+    
+    func promptForPassword() async -> String? {
+        // Replace this with a SwiftUI TextField alert or modal
+        return await withCheckedContinuation { continuation in
+            DispatchQueue.main.async {
+                let alert = UIAlertController(title: "Re-authentication Required", message: "Enter your password to continue.", preferredStyle: .alert)
+                alert.addTextField { textField in
+                    textField.isSecureTextEntry = true
+                }
+                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
+                    continuation.resume(returning: nil)
+                }))
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+                    let password = alert.textFields?.first?.text
+                    continuation.resume(returning: password)
+                }))
+                UIApplication.shared.windows.first?.rootViewController?.present(alert, animated: true, completion: nil)
             }
         }
     }
@@ -988,131 +1019,6 @@ struct UserProfile: View {
     }
     
     
-
-//    private func enrollUserInTOTP(user: FirebaseAuth.User) {
-//        Task {
-//            do {
-//                // Generate a TOTP secret
-//                guard let mfaSession = try? await user.multiFactor.session() else { return }
-//                guard let totpSecret = try? await TOTPMultiFactorGenerator.generateSecret(with: mfaSession) else { return }
-//                
-//                // Display the secret to the user (show them the QR code or secret)
-//                let otpAuthUri = totpSecret.generateQRCodeURL(
-//                    withAccountName: user.email ?? "default account",
-//                    issuer: "Your App Name"
-//                )
-//                
-//                // Convert string to URL and show the QR code screen
-//                if let otpAuthUriURL = URL(string: otpAuthUri) {
-//                    self.showQRCodeScreen(otpAuthUri: otpAuthUriURL, totpSecret: totpSecret)
-//                }
-//                
-//            } catch {
-//                // Handle error (e.g., incorrect or expired TOTP)
-//            }
-//        }
-//    }
-
-//    private func showQRCodeScreen(otpAuthUri: URL, totpSecret: TOTPSecret) -> some View {
-//        VStack {
-//            Text("Scan this QR code with your authenticator app:")
-//                .font(.headline)
-//            
-//            Image(systemName: "qrcode.viewfinder")
-//                .resizable()
-//                .scaledToFit()
-//                .frame(width: 200, height: 200)
-//            
-//            Text("Or enter the key manually: \(otpAuthUri.absoluteString)")
-//                .font(.caption)
-//                .padding()
-//            
-//            // Field for entering the verification code
-//            TextField("Enter Verification Code", text: $verificationCode)
-//                .textFieldStyle(RoundedBorderTextFieldStyle())
-//                .keyboardType(.numberPad)
-//                .padding()
-//            
-//            Button("Submit Code") {
-//                finalizeTOTPEnrollment(totpSecret: totpSecret, code: verificationCode)
-//            }
-//            .padding()
-//            .background(Color.green)
-//            .foregroundColor(.white)
-//            .cornerRadius(8)
-//        }
-//    }
-
-//    private func finalizeTOTPEnrollment(totpSecret: TOTPSecret, code: String) {
-//        Task {
-//            do {
-//                guard let user = Auth.auth().currentUser else { return }
-//                
-//                // Finalize TOTP MFA enrollment with the entered verification code
-//                let multiFactorAssertion = TOTPMultiFactorGenerator.assertionForEnrollment(
-//                    with: totpSecret,
-//                    oneTimePassword: code
-//                )
-//                
-//                try await user.multiFactor.enroll(
-//                    with: multiFactorAssertion,
-//                    displayName: "TOTP"
-//                )
-//                
-//                // Successful enrollment, proceed to next screen
-//                // Handle post-enrollment logic here (e.g., navigating to the main app)
-//                
-//            } catch {
-//                // Handle error (e.g., invalid verification code)
-//            }
-//        }
-//    }
-    
-//    private func createAccount() {
-//        guard password == confirmPassword else {
-//            errorMessage = "Passwords do not match."
-//            return
-//        }
-//        
-//        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
-//            if let error = error {
-//                errorMessage = error.localizedDescription
-//                return
-//            }
-//            
-//            guard let user = authResult?.user else { return }
-//            let fullName = "\(firstName) \(lastName)"
-//            
-//            userId = user.uid
-//            
-//            // Store user data and set MFA pending flag
-//            Firestore.firestore().collection("users").document(user.uid).setData([
-//                "firstName": firstName,
-//                "lastName": lastName,
-//                "email": email,
-//                "isAdmin": isAdmin,
-//                "employer": selectedSubcontractor,
-//                "jobRole": selectedJobRole,
-//                "inviteCode": inviteCode,
-//                "uid": user.uid,
-//                "phoneNumber": phoneNumber,
-//                "isMFACompleted": false // Set flag to false until MFA is completed
-//            ]) { _ in
-//                let changeRequest = user.createProfileChangeRequest()
-//                changeRequest.displayName = fullName
-//                changeRequest.commitChanges { error in
-//                    if error == nil {
-//                        // Proceed to TOTP enrollment
-////                        self.enrollUserInTOTP(user: user)
-//                        
-//                    }
-//                }
-//            }
-//        }
-//    }
-    
-    
-
     
     private func signOut() {
         do {
