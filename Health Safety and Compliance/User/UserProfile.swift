@@ -328,15 +328,6 @@ struct UserProfile: View {
         }
     }
     
-    // MARK: - Site Check
-//    private var siteCheck: some View {
-//        ScrollView {
-//            VStack {
-//                Text("hello")
-//            }
-//        }
-//    }
-    
     struct SiteCheckView: View {
         @StateObject private var viewModel = AddressViewModel()
         
@@ -431,54 +422,6 @@ struct UserProfile: View {
                 }
             }
         }
-//        .popover(isPresented: $isAuthPresented) {
-//            // Your popover content goes here
-//            VStack {
-//                Text("Enter Phone Number")
-//                    .font(.title)
-//                    .fontWeight(.bold)
-//                    .padding(.bottom, 10)
-//                HStack {
-//                    Text("🇬🇧+44")
-//                        .font(.body)
-//                        .fontWeight(.semibold)
-//                        .foregroundColor(generatedInviteCode.isEmpty ? .secondary : .primary)
-//                        .lineLimit(1)
-//                    
-//                    TextField("Phone Number", text: $phoneNumber)
-//                        .keyboardType(.phonePad)
-//                    
-//                    if !generatedInviteCode.isEmpty {
-//                        Button(action: { UIPasteboard.general.string = generatedInviteCode }) {
-//                            Image(systemName: "doc.on.doc")
-//                                .foregroundColor(.blue)
-//                                .padding(8)
-//                                .background(Circle().fill(Color.white).shadow(radius: 3))
-//                        }
-//                    }
-//                    
-//                    Spacer()
-//                    
-//                    Button(action: {
-//                        sendVerificationCode()
-//                        print(phoneNumber)
-//                    }) {
-//                        Text("Send Code")
-//                            .fontWeight(.semibold)
-//                            .foregroundColor(.white)
-//                            .padding(.horizontal, 20)
-//                            .padding(.vertical, 10)
-//                            .background(Color.green)
-//                            .cornerRadius(10)
-//                            .shadow(radius: 5)
-//                    }
-//                }
-//                .frame(width: 325)
-//                .padding()
-//                .background(Color(UIColor.systemGray6))
-//                .cornerRadius(15)
-//            }
-//        }
     }
     
     // MARK: - Account Management Section
@@ -647,11 +590,6 @@ struct UserProfile: View {
     
     
     private func isPasswordValid(_ password: String) -> Bool {
-        // Regular expression for a password with:
-        // - At least 12 characters
-        // - At least one uppercase letter
-        // - At least one number
-        // - At least one symbol
         let passwordRegex = "^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$&*])(?=.*[a-z]).{12,}$"
         return NSPredicate(format: "SELF MATCHES %@", passwordRegex).evaluate(with: password)
     }
@@ -991,7 +929,8 @@ struct UserProfile: View {
                 print("✅ MFA Enrollment Successful!")
                 
                 try await Firestore.firestore().collection("users").document(user.uid).updateData([
-                    "MFAEnabled": true
+                    "MFAEnabled": true,
+                    "MFAEnableTime": Timestamp()
                 ])
 
             } catch {

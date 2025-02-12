@@ -8,335 +8,1091 @@
       "localizations" : {
         "en" : {
           "stringUnit" : {
-            "state" : "new",
+            "state" : "translated",
             "value" : "%1$@ %2$@"
           }
         }
       }
     },
     "Account" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Account"
+          }
+        }
+      }
     },
     "Add New Contract" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add New Contract"
+          }
+        }
+      }
     },
     "Admin" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Admin"
+          }
+        }
+      }
     },
     "Administrator" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Administrator"
+          }
+        }
+      }
     },
     "Already have an account? Sign In" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Already have an account? Sign In"
+          }
+        }
+      }
     },
     "Anyone without a device?" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anyone without a device?"
+          }
+        }
+      }
     },
     "Are you a subcontractor?" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Are you a subcontractor?"
+          }
+        }
+      }
     },
     "Asbestos Awareness" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Asbestos Awareness"
+          }
+        }
+      }
     },
     "Asbestos Documentation" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Asbestos Documentation"
+          }
+        }
+      }
     },
     "Asbestos Safe" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Asbestos Safe"
+          }
+        }
+      }
     },
     "Change Password" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change Password"
+          }
+        }
+      }
     },
     "Close" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Close"
+          }
+        }
+      }
     },
     "Confirm New Password" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirm New Password"
+          }
+        }
+      }
     },
     "Confirm Password" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirm Password"
+          }
+        }
+      }
     },
     "Confirm Submission" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirm Submission"
+          }
+        }
+      }
     },
     "Contract Name" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contract Name"
+          }
+        }
+      }
     },
     "Contract: %@" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contract: %@"
+          }
+        }
+      }
     },
     "Create Account" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Create Account"
+          }
+        }
+      }
     },
     "Current Contracts" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Current Contracts"
+          }
+        }
+      }
     },
     "Date of Report" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Date of Report"
+          }
+        }
+      }
     },
     "Describe Actions Taken to Prevent From Happening Again" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Describe Actions Taken to Prevent From Happening Again"
+          }
+        }
+      }
     },
     "Describe the Accident" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Describe the Accident"
+          }
+        }
+      }
     },
     "Describe the Incident" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Describe the Incident"
+          }
+        }
+      }
     },
     "Describe the Near Miss" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Describe the Near Miss"
+          }
+        }
+      }
     },
     "Dismiss" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dismiss"
+          }
+        }
+      }
     },
     "Don't have an account? Create one" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Don't have an account? Create one"
+          }
+        }
+      }
     },
     "Done" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Done"
+          }
+        }
+      }
     },
     "Edit" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit"
+          }
+        }
+      }
     },
     "Edit Contracts" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit Contracts"
+          }
+        }
+      }
     },
     "Email" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Email"
+          }
+        }
+      }
     },
     "Expiry Date:" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Expiry Date:"
+          }
+        }
+      }
     },
     "Face Fit" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Face Fit"
+          }
+        }
+      }
     },
     "Facefit" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Facefit"
+          }
+        }
+      }
     },
     "First Name" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "First Name"
+          }
+        }
+      }
     },
     "Forename" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Forename"
+          }
+        }
+      }
     },
     "Generate" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Generate"
+          }
+        }
+      }
     },
     "Guest Name" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Guest Name"
+          }
+        }
+      }
     },
     "I have assessed the point of works for risk" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I have assessed the point of works for risk"
+          }
+        }
+      }
     },
     "I have been trained to do the task and operate the equipment provided" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I have been trained to do the task and operate the equipment provided"
+          }
+        }
+      }
     },
     "I have evidence of my identification/qualifications to hand" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I have evidence of my identification/qualifications to hand"
+          }
+        }
+      }
     },
     "I have got the correct information to do the job" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I have got the correct information to do the job"
+          }
+        }
+      }
     },
     "I have read and understood the relevant safe systems of work" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I have read and understood the relevant safe systems of work"
+          }
+        }
+      }
     },
     "I have the correct equipment" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I have the correct equipment"
+          }
+        }
+      }
     },
     "I have the correct PPE for the task" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I have the correct PPE for the task"
+          }
+        }
+      }
     },
     "I know and understand what actions to take in the event of an emergency" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I know and understand what actions to take in the event of an emergency"
+          }
+        }
+      }
     },
     "I understand what measures I must do to control the hazards / risks" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I understand what measures I must do to control the hazards / risks"
+          }
+        }
+      }
     },
     "Induction Confirmation" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Induction Confirmation"
+          }
+        }
+      }
     },
     "Invalid or expired invite code." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invalid or expired invite code."
+          }
+        }
+      }
     },
     "Invite Code" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invite Code"
+          }
+        }
+      }
     },
     "Last Name" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last Name"
+          }
+        }
+      }
     },
     "Loading..." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Loading..."
+          }
+        }
+      }
     },
     "Location" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Location"
+          }
+        }
+      }
     },
     "Location: %@" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Location: %@"
+          }
+        }
+      }
     },
     "Multi-Factor Authentication" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Multi-Factor Authentication"
+          }
+        }
+      }
     },
     "New Contract Name" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New Contract Name"
+          }
+        }
+      }
     },
     "New Password" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New Password"
+          }
+        }
+      }
     },
     "Next Energy Employee" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next Energy Employee"
+          }
+        }
+      }
     },
     "No Report Attached" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Report Attached"
+          }
+        }
+      }
     },
     "Not Asbestos Safe" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not Asbestos Safe"
+          }
+        }
+      }
     },
     "OK" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        }
+      }
     },
     "Passport" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passport"
+          }
+        }
+      }
     },
     "Password" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Password"
+          }
+        }
+      }
     },
     "Password must be at least 12 characters long, include at least one uppercase letter, one number, and one symbol." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Password must be at least 12 characters long, include at least one uppercase letter, one number, and one symbol."
+          }
+        }
+      }
     },
     "Passwords do not match" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Passwords do not match"
+          }
+        }
+      }
     },
     "Person's Age" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Person's Age"
+          }
+        }
+      }
     },
     "Phone Number" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Phone Number"
+          }
+        }
+      }
     },
     "Point of works Risk Assessment" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Point of works Risk Assessment"
+          }
+        }
+      }
     },
     "Profile" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Profile"
+          }
+        }
+      }
     },
     "Projects" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Projects"
+          }
+        }
+      }
     },
     "Qualifications" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Qualifications"
+          }
+        }
+      }
     },
     "Register" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Register"
+          }
+        }
+      }
     },
     "Report" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Report"
+          }
+        }
+      }
     },
     "Report Attached" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Report Attached"
+          }
+        }
+      }
     },
     "Report Type" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Report Type"
+          }
+        }
+      }
     },
     "Review Report" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Review Report"
+          }
+        }
+      }
     },
     "Save Expiry Date" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save Expiry Date"
+          }
+        }
+      }
     },
     "Search addresses" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search addresses"
+          }
+        }
+      }
     },
     "Select a contract to sign in" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select a contract to sign in"
+          }
+        }
+      }
     },
     "Select Date" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select Date"
+          }
+        }
+      }
     },
     "Select Expiry Date" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select Expiry Date"
+          }
+        }
+      }
     },
     "Select Job Role" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select Job Role"
+          }
+        }
+      }
     },
     "Select Status" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select Status"
+          }
+        }
+      }
     },
     "Select Subcontractor" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select Subcontractor"
+          }
+        }
+      }
     },
     "Sign In" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign In"
+          }
+        }
+      }
     },
     "Sign in with Phone Number" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign in with Phone Number"
+          }
+        }
+      }
     },
     "Sign Out" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sign Out"
+          }
+        }
+      }
     },
     "Status: %@" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Status: %@"
+          }
+        }
+      }
     },
     "Submit Report" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Submit Report"
+          }
+        }
+      }
     },
     "Surname" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Surname"
+          }
+        }
+      }
     },
     "Time of the Accident" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Time of the Accident"
+          }
+        }
+      }
     },
     "Time of the Incident" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Time of the Incident"
+          }
+        }
+      }
     },
     "Time: %@" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Time: %@"
+          }
+        }
+      }
     },
     "Update Password" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Update Password"
+          }
+        }
+      }
     },
     "Upload Image" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Upload Image"
+          }
+        }
+      }
     },
     "Upload PDF" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Upload PDF"
+          }
+        }
+      }
     },
     "Upload your Asbestos Certifications here" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Upload your Asbestos Certifications here"
+          }
+        }
+      }
     },
     "Upload your Face Fit Certifications here" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Upload your Face Fit Certifications here"
+          }
+        }
+      }
     },
     "User" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "User"
+          }
+        }
+      }
     },
     "Warning" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Warning"
+          }
+        }
+      }
     },
     "Was there a safety breach involved?" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Was there a safety breach involved?"
+          }
+        }
+      }
     },
     "Was there an injury reported?" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Was there an injury reported?"
+          }
+        }
+      }
     },
     "Was there any damage reported?" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Was there any damage reported?"
+          }
+        }
+      }
     },
     "Welcome, Guest" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Welcome, Guest"
+          }
+        }
+      }
     },
     "What is your Safety F1rst observation?" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "What is your Safety F1rst observation?"
+          }
+        }
+      }
     },
     "Who is Your Line Manager?" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Who is Your Line Manager?"
+          }
+        }
+      }
     },
     "Witness Names (if any)" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Witness Names (if any)"
+          }
+        }
+      }
     },
     "You should only use this feature when:\n• A co-worker doesn't have access to a smartphone/tablet.\n• A visitor or guest is on site and needs to register their presence.\n• A co-workers device is malfunctioning or cannot connect to the system." : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You should only use this feature when:\n• A co-worker doesn't have access to a smartphone/tablet.\n• A visitor or guest is on site and needs to register their presence.\n• A co-workers device is malfunctioning or cannot connect to the system."
+          }
+        }
+      }
     },
     "Your Address" : {
-
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your Address"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"
