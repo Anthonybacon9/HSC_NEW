@@ -21,6 +21,7 @@ struct UserProfile: View {
     @AppStorage("isAdmin") var isAdmin: Bool = false
     @AppStorage("subcontractor") var subcontractor: String = ""
     @AppStorage("job") var job: String = ""
+
     
     
     @State private var selectedTab: String = "Safety Passport"
@@ -37,6 +38,7 @@ struct UserProfile: View {
     @State private var isAuthPresented = true
     @State private var isPhoneAuthSelected = false
     @State private var verificationCode: String = ""
+    @State private var MFAEnabled: Bool = false
     
     @State private var email = ""
     @State private var password = ""
@@ -203,11 +205,6 @@ struct UserProfile: View {
     
     private var safetyPassportSection: some View {
         LazyVGrid(columns: columns, spacing: 10) {
-            
-            
-            
-            
-            
             
             Button(action: {
                 cardShowing.toggle()
@@ -532,7 +529,31 @@ struct UserProfile: View {
                 .padding()
             }
             
-            // Sign Out Button
+            //MARK: MFA BUTTON
+            Button(action: setupMFA) {
+                Rectangle()
+                    .fill(Color.orange)
+                    .opacity(0.3)
+                    .background(.thinMaterial)
+                    .frame(height: 150)
+                    .overlay(
+                        VStack(spacing: 10) {  // Added spacing for better layout
+                            Image(systemName: "lock.shield.fill")
+                                .font(.system(size: 40))  // Smaller icon size
+                            Text("Multi-Factor Authentication")
+                                .font(.title3)  // Adjusted text size
+                                .multilineTextAlignment(.center)
+                                .frame(maxWidth: .infinity)
+                                .padding(.horizontal)  // Added horizontal padding for better alignment
+                        }
+                            .foregroundColor(.orange)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    )
+                    .cornerRadius(10)
+            }
+            .buttonStyle(PlainButtonStyle())
+            
+            //MARK: Sign Out Button
             Button(action: signOut) {
                 Rectangle()
                     .fill(Color.red)
@@ -556,28 +577,7 @@ struct UserProfile: View {
             }
             .buttonStyle(PlainButtonStyle())
             
-            Button(action: setupMFA) {
-                Rectangle()
-                    .fill(Color.orange)
-                    .opacity(0.3)
-                    .background(.thinMaterial)
-                    .frame(height: 150)
-                    .overlay(
-                        VStack(spacing: 10) {  // Added spacing for better layout
-                            Image(systemName: "lock.shield.fill")
-                                .font(.system(size: 40))  // Smaller icon size
-                            Text("Multi-Factor Authentication")
-                                .font(.title3)  // Adjusted text size
-                                .multilineTextAlignment(.center)
-                                .frame(maxWidth: .infinity)
-                                .padding(.horizontal)  // Added horizontal padding for better alignment
-                        }
-                            .foregroundColor(.orange)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    )
-                    .cornerRadius(10)
-            }
-            .buttonStyle(PlainButtonStyle())
+            
         }
     }
     
@@ -888,7 +888,8 @@ struct UserProfile: View {
                     "jobRole": selectedJobRole,
                     "inviteCode": inviteCode,
                     "uid": user.uid,
-                    "phoneNumber": phoneNumber
+                    "phoneNumber": phoneNumber,
+                    "MFAEnabled": false
                 ])
 
                 // Update display name
@@ -911,15 +912,21 @@ struct UserProfile: View {
             }
         }
     }
-    
+
     private func setupMFA() {
         Task {
             guard let user = Auth.auth().currentUser else { return }
 
             // ✅ Refresh user data
             try await user.reload()
+
             if !user.isEmailVerified {
-                errorMessage = "You need to verify your email before setting up MFA."
+                do {
+                    try await user.sendEmailVerification()
+                    showAlert(title: "Email Verification", message: "A verification email has been sent. Please check your inbox and verify your email before setting up MFA.")
+                } catch {
+                    showAlert(title: "Error", message: "Failed to send verification email: \(error.localizedDescription)")
+                }
                 return
             }
 
@@ -940,13 +947,32 @@ struct UserProfile: View {
                 let totpSecret = try await TOTPMultiFactorGenerator.generateSecret(with: mfaSession)
 
                 // ✅ Generate QR Code URL for the authenticator app
-                let otpAuthUri = totpSecret.generateQRCodeURL(
+                var otpAuthUriString = totpSecret.generateQRCodeURL(
                     withAccountName: user.email ?? "default account",
-                    issuer: "Your App Name"
+                    issuer: "HSC"
                 )
 
-                // ✅ Open Google Authenticator or similar app
-                totpSecret.openInOTPApp(withQRCodeURL: otpAuthUri)
+                // ✅ Properly decode and clean up the URL
+                if let decodedUri = otpAuthUriString.removingPercentEncoding {
+                    otpAuthUriString = decodedUri
+                }
+
+                // ✅ Fix algorithm encoding issue (ensure SHA1 is correctly formatted)
+                otpAuthUriString = otpAuthUriString.replacingOccurrences(of: "%25SHA1", with: "SHA1")
+                otpAuthUriString = otpAuthUriString.replacingOccurrences(of: "%SHA1", with: "SHA1")
+                
+                print(otpAuthUriString)
+
+                // ✅ Re-encode properly for URL use
+                if let fixedEncodedUri = otpAuthUriString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
+                    otpAuthUriString = fixedEncodedUri
+                }
+
+                if let otpAuthUrl = URL(string: otpAuthUriString) {
+                    await showMFASetupOptions(otpAuthUri: otpAuthUrl.absoluteString)
+                } else {
+                    print("❌ Error: Invalid OTP Auth URI")
+                }
 
                 // ✅ Wait for user to enter the TOTP code
                 let verificationCode = await promptForTOTPCode()
@@ -963,10 +989,64 @@ struct UserProfile: View {
                 try await user.multiFactor.enroll(with: multiFactorAssertion, displayName: "TOTP")
 
                 print("✅ MFA Enrollment Successful!")
+                
+                try await Firestore.firestore().collection("users").document(user.uid).updateData([
+                    "MFAEnabled": true
+                ])
 
             } catch {
-                print("Error: \(error.localizedDescription)")
+                print("❌ Error: \(error.localizedDescription)")
                 errorMessage = error.localizedDescription
+            }
+        }
+    }
+    
+    func showMFASetupOptions(otpAuthUri: String) async {
+        guard let url = URL(string: otpAuthUri) else {
+            print("❌ Invalid OTP Auth URL")
+            return
+        }
+
+        // ✅ Extract just the secret from the OTP URI
+        let secret: String? = {
+            let components = otpAuthUri.components(separatedBy: "secret=")
+            if components.count > 1 {
+                return components[1].components(separatedBy: "&").first
+            }
+            return nil
+        }()
+
+        await withCheckedContinuation { continuation in
+            DispatchQueue.main.async {
+                let alert = UIAlertController(
+                    title: "Setup MFA",
+                    message: "Scan this QR code in your authenticator app or manually enter the setup link.",
+                    preferredStyle: .actionSheet
+                )
+
+                // ✅ Open Authenticator App
+                alert.addAction(UIAlertAction(title: "Open Authenticator App", style: .default, handler: { _ in
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                    continuation.resume()
+                }))
+
+                // ✅ Copy only the secret to Clipboard
+                alert.addAction(UIAlertAction(title: "Copy Secret", style: .default, handler: { _ in
+                    if let secret = secret {
+                        UIPasteboard.general.string = secret
+                        print("✅ Copied Secret: \(secret)")
+                    } else {
+                        print("❌ Error: Unable to extract secret")
+                    }
+                    continuation.resume()
+                }))
+
+                // ✅ Cancel
+                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
+                    continuation.resume()
+                }))
+
+                UIApplication.shared.windows.first?.rootViewController?.present(alert, animated: true)
             }
         }
     }
@@ -987,6 +1067,17 @@ struct UserProfile: View {
                     continuation.resume(returning: password)
                 }))
                 UIApplication.shared.windows.first?.rootViewController?.present(alert, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    func showAlert(title: String, message: String) {
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            
+            if let rootVC = UIApplication.shared.windows.first?.rootViewController {
+                rootVC.present(alert, animated: true, completion: nil)
             }
         }
     }
@@ -1039,22 +1130,69 @@ struct UserProfile: View {
     }
     
     private func signIn() {
-        Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
-            if let error = error {
-                errorMessage = error.localizedDescription
-                return
-            }
-            
-            if let user = authResult?.user {
-                username = user.displayName ?? user.email ?? "Unknown User"
-                userId = user.uid
-                isAuthenticated = true
+        Task {
+            do {
+                let authResult = try await Auth.auth().signIn(withEmail: email, password: password)
                 
-                fetchUserData(userId: user.uid)
+                // ✅ Successful sign-in (No MFA required)
+                handleSuccessfulSignIn(authResult: authResult)
+                
+            } catch let error as NSError {
+                if error.code == AuthErrorCode.secondFactorRequired.rawValue {
+                    // ✅ MFA is required, prompt the user for their TOTP code
+                    await handleMFA(error: error)
+                } else {
+                    // Other authentication error
+                    errorMessage = error.localizedDescription
+                }
             }
         }
     }
     
+    private func handleMFA(error: NSError) async {
+        let mfaKey = AuthErrorUserInfoMultiFactorResolverKey
+        guard let resolver = error.userInfo[mfaKey] as? MultiFactorResolver else { return }
+        
+        let enrolledFactors = resolver.hints.map(\.displayName)
+        
+        // ✅ Assume the user selects the first enrolled factor (adjust for UI selection)
+        guard let multiFactorInfo = resolver.hints.first else {
+            errorMessage = "No enrolled MFA factors found."
+            return
+        }
+        
+        if multiFactorInfo.factorID == TOTPMultiFactorID {
+            // ✅ Prompt user to enter TOTP code
+            let otpCode = await promptForTOTPCode()
+            
+            if otpCode.isEmpty {
+                errorMessage = "You must enter a valid TOTP code."
+                return
+            }
+            
+            let assertion = TOTPMultiFactorGenerator.assertionForSignIn(
+                withEnrollmentID: multiFactorInfo.uid,
+                oneTimePassword: otpCode
+            )
+            
+            do {
+                // ✅ Complete MFA sign-in
+                let authResult = try await resolver.resolveSignIn(with: assertion)
+                handleSuccessfulSignIn(authResult: authResult)
+            } catch {
+                errorMessage = "Invalid or expired OTP. Please try again."
+            }
+        }
+    }
+    
+    private func handleSuccessfulSignIn(authResult: AuthDataResult) {
+        let user = authResult.user
+        username = user.displayName ?? user.email ?? "Unknown User"
+        userId = user.uid
+        isAuthenticated = true
+        
+        fetchUserData(userId: user.uid)
+    }
     
     func fetchUserData(userId: String) {
         Firestore.firestore().collection("users").document(userId).getDocument { document, _ in
@@ -1065,6 +1203,8 @@ struct UserProfile: View {
                 subcontractor = data["employer"] as? String ?? "no subcontractor selected"
                 job = data["jobRole"] as? String ?? "no job selected"
                 phoneNumber = data["phoneNumber"] as? String ?? "no phone number"
+                MFAEnabled = data["MFAEnabled"] as? Bool ?? false
+                
                 
                 username = "\(firstName) \(lastName)"
             }
