@@ -122,6 +122,7 @@ struct EditContractsView: View {
             }
         }
     }
+    
 }
 
 #Preview {

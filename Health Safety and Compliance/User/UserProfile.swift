@@ -499,6 +499,30 @@ struct UserProfile: View {
             //MARK: Sign Out Button
             Button(action: signOut) {
                 Rectangle()
+                    .fill(Color.gray)
+                    .opacity(0.3)
+                    .background(.thinMaterial)
+                    .frame(height: 150)
+                    .overlay(
+                        VStack(spacing: 10) {  // Added spacing for better layout
+                            Image(systemName: "person.text.rectangle.fill")
+                                .font(.system(size: 40))  // Smaller icon size
+                            Text("Account Details")
+                                .font(.title3)  // Adjusted text size
+                                .multilineTextAlignment(.center)
+                                .frame(maxWidth: .infinity)
+                                .padding(.horizontal)  // Added horizontal padding for better alignment
+                        }
+                            .foregroundColor(.gray)
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    )
+                    .cornerRadius(10)
+            }
+            .buttonStyle(PlainButtonStyle())
+            
+            //MARK: Account Details
+            Button(action: signOut) {
+                Rectangle()
                     .fill(Color.red)
                     .opacity(0.3)
                     .background(.thinMaterial)
@@ -532,16 +556,34 @@ struct UserProfile: View {
             LazyVGrid(columns: columns, spacing: 10) {
                 NavigationLink(destination: EditContractsView()) {
                     Rectangle()
+                        .fill(Color.cyan)
+                        .opacity(0.3)
+                        .frame(height: 150)
+                        .overlay(
+                            VStack {
+                                Image(systemName: "square.and.pencil")
+                                    .font(.system(size: 50))
+                                Text("Contracts")
+                                    .font(.title3)
+                                    .multilineTextAlignment(.center)
+                            }
+                                .foregroundColor(.cyan)
+                        )
+                        .cornerRadius(10)
+                }
+                NavigationLink(destination: EditSubcontractorsView()) {
+                    Rectangle()
                         .fill(Color.green)
                         .opacity(0.3)
                         .frame(height: 150)
                         .overlay(
                             VStack {
-                                Image(systemName: "rectangle.and.pencil.and.ellipsis")
+                                Image(systemName: "square.and.pencil")
                                     .font(.system(size: 50))
-                                Text("Edit Contracts")
+                                Text("Subcontractors")
                                     .font(.title3)
                                     .multilineTextAlignment(.center)
+                                
                             }
                                 .foregroundColor(.green)
                         )
@@ -812,17 +854,35 @@ struct UserProfile: View {
 
         Task {
             do {
+                // Step 1: Query Firestore to get the subcontractor ID based on the name
+                let querySnapshot = try await Firestore.firestore()
+                    .collection("subcontractors")
+                    .whereField("name", isEqualTo: selectedSubcontractor)
+                    .getDocuments()
+
+                guard let subcontractorDoc = querySnapshot.documents.first else {
+//                    errorMessage = "Subcontractor not found."
+                    return
+                }
+
+                guard let subcontractorID = subcontractorDoc.data()["subcontractorID"] as? Int else {
+                    errorMessage = "Subcontractor ID not found."
+                    return
+                }
+
+                // Step 2: Create the user in Firebase Authentication
                 let authResult = try await Auth.auth().createUser(withEmail: email, password: password)
                 let user = authResult.user
                 let fullName = "\(firstName) \(lastName)"
 
-                // Store user data in Firestore
+                // Step 3: Store user data in Firestore
                 try await Firestore.firestore().collection("users").document(user.uid).setData([
                     "firstName": firstName,
                     "lastName": lastName,
                     "email": email,
                     "isAdmin": isAdmin,
-                    "employer": selectedSubcontractor,
+                    "employer": selectedSubcontractor,  // Subcontractor Name
+                    "employerID": subcontractorID,      // Subcontractor Firestore ID
                     "jobRole": selectedJobRole,
                     "inviteCode": inviteCode,
                     "uid": user.uid,
@@ -830,7 +890,7 @@ struct UserProfile: View {
                     "MFAEnabled": false
                 ])
 
-                // Update display name
+                // Step 4: Update display name
                 let changeRequest = user.createProfileChangeRequest()
                 changeRequest.displayName = fullName
                 try await changeRequest.commitChanges()
@@ -1149,33 +1209,6 @@ struct UserProfile: View {
             }
         }
     }
-    
-    
-//
-//    private func verifyCode() {
-//        guard let verificationID = UserDefaults.standard.string(forKey: "authVerificationID") else { return }
-//        
-//        let credential = PhoneAuthProvider.provider().credential(
-//            withVerificationID: verificationID,
-//            verificationCode: enteredCode
-//        )
-//        
-//        Auth.auth().signIn(with: credential) { authResult, error in
-//            if let error = error {
-//                errorMessage = error.localizedDescription
-//                return
-//            }
-//            
-//            // Proceed with account creation after successful phone verification
-//            createAccount()
-//        }
-//    }
-    
-    
-        
-        
-        
-    
     
     
     fileprivate func QualificationsSheet() -> some View {
